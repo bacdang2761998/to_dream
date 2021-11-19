@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
+// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
 
@@ -16,6 +17,7 @@ class CreateAccount extends StatefulWidget {
   _CreateAccountState createState() => _CreateAccountState();
 }
 
+// TODO(bac): search lại cách dùng TextEditingController
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _lifeSpanController =
     TextEditingController(text: "Year");
@@ -44,7 +46,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
     return File(imagePath).copy(image.path);
   }
-
+  // TODO(bac): remove unused code
   // Future<Null> _selectDate(BuildContext context) async {
   //   final DateTime? _datePicked = await showDatePicker(
   //       context: context,
@@ -68,6 +70,7 @@ class _CreateAccountState extends State<CreateAccount> {
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (value) {
+                // TODO(bac): fix warning
                 if (value != null && value != _date)
                   setState(() {
                     _date = value;
@@ -116,6 +119,7 @@ class _CreateAccountState extends State<CreateAccount> {
               color: Colors.white60,
             ),
             Container(
+                 // TODO(bac): remove unused code
               // color: Colors.white,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -228,6 +232,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                     child: Container(
+                         // TODO(bac): set luon padding trong container
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(

@@ -29,6 +29,7 @@ class ImageWidget extends StatelessWidget {
     return GestureDetector(
       child: Material(
         child: Ink.image(image: image as ImageProvider,fit: BoxFit.cover,
+          // TODO(bac): format code, choose format on save in setting
           width: size.width*1/3,
           height: size.width*1/3,
           child: InkWell(
@@ -50,6 +51,7 @@ Future<ImageSource?> showImageSource(BuildContext context) async {
         builder: (context) => CupertinoActionSheet(
           actions: [
             CupertinoActionSheetAction(
+              // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
               child: Text("Camera"),
               onPressed: () =>Navigator.of(context).pop(ImageSource.camera),
             ),
