@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'create_account.dart';
 
+// TODO(bac): fix warning, các màn khác sửa tương tự
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
 
@@ -46,6 +47,7 @@ class _IntroScreenState extends State<IntroScreen> {
     final MyPage3 = Container(
 
         alignment: Alignment.topCenter,
+        // TODO(bac): tách view sang từng function/block cho clean, để scafold lên đầu.
         child: Column(
           children: [
             Expanded(
@@ -67,6 +69,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             fontStyle: FontStyle.italic,
                             decoration: TextDecoration.underline)),
                     onTap: () {
+                      // TODO(bac): sử dụng provider thay setState 
                       _isAbsorb = !_isAbsorb;
                       setState(() {});
                       Navigator.push(
@@ -91,6 +94,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   child: Column(
                     children: [
                       Expanded(
+                        // TODO(bac): default 1, remove
                         flex: 1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
