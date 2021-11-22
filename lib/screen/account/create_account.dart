@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:dream/app_string.dart';
 import 'package:dream/image_widget.dart';
-import 'package:dream/screen/home_screen.dart';
+import 'package:dream/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án 
+// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
 
@@ -46,19 +46,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
     return File(imagePath).copy(image.path);
   }
-  // TODO(bac): remove unused code
-  // Future<Null> _selectDate(BuildContext context) async {
-  //   final DateTime? _datePicked = await showDatePicker(
-  //       context: context,
-  //     firstDate: DateTime(1900,01,01),
-  //       initialDate: _date,
-  //     lastDate: DateTime(2100),
-  //       );
-  //   if (_datePicked != null && _datePicked != _date)
-  //     setState(() {
-  //       _date = _datePicked;
-  //     });
-  // }
 
   void showDatePicker() {
     showCupertinoModalPopup(
@@ -70,8 +57,7 @@ class _CreateAccountState extends State<CreateAccount> {
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (value) {
-                // TODO(bac): fix warning
-                if (value != null && value != _date)
+                if (value != _date)
                   setState(() {
                     _date = value;
                   });
@@ -89,7 +75,6 @@ class _CreateAccountState extends State<CreateAccount> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // backgroundColor: Colors.lightGreenAccent,
       appBar: AppBar(
         elevation: 5,
         backgroundColor: Colors.blue,
@@ -119,8 +104,6 @@ class _CreateAccountState extends State<CreateAccount> {
               color: Colors.white60,
             ),
             Container(
-                 // TODO(bac): remove unused code
-              // color: Colors.white,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.grey),
@@ -150,7 +133,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
-                      // height: size.width*2/3,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -159,8 +141,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             textDirection: TextDirection.ltr,
                             textCapitalization: TextCapitalization.sentences,
                             controller: _nameController,
-                            decoration: InputDecoration(
-                                hintText: "Name"),
+                            decoration: InputDecoration(hintText: "Name"),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15),
@@ -169,10 +150,9 @@ class _CreateAccountState extends State<CreateAccount> {
                               height: 28,
                               decoration: BoxDecoration(
                                   border: Border(
-                                      bottom: BorderSide(
-                                          width: 1, color: Colors.grey),
-                                    //
-                                  )),
+                                bottom:
+                                    BorderSide(width: 1, color: Colors.grey),
+                              )),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -183,7 +163,6 @@ class _CreateAccountState extends State<CreateAccount> {
                                     child: GestureDetector(
                                       onTap: () {
                                         showDatePicker();
-                                        // _selectDate(context);
                                       },
                                       child: Text(
                                         "${_date.day} / ${_date.month} / ${_date.year}",
@@ -199,15 +178,11 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
                           TextField(
                             autocorrect: true,
-                            // textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,
                             keyboardType: TextInputType.number,
                             controller: _lifeSpanController,
-
                             decoration: InputDecoration(
-                              hintText: "Life",
-                                // prefix: Text("Life Span",style: TextStyle(color: Colors.black),),
-                                border: InputBorder.none),
+                                hintText: "Life", border: InputBorder.none),
                           ),
                         ],
                       ),
@@ -229,19 +204,16 @@ class _CreateAccountState extends State<CreateAccount> {
                       width: 50,
                     ),
                   ),
+                  // TODO(bac): set luon padding trong container
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                     child: Container(
-                         // TODO(bac): set luon padding trong container
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.white10,
-                          // style: BorderStyle.solid
-                        ),
-                        borderRadius: BorderRadius.circular(10)
-                      ),
-                      // color: Colors.white,
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.white10,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
                       width: double.infinity,
                       height: size.height * 1 / 3,
                       child: Center(
