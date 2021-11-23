@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:dream/app_string.dart';
-import 'package:dream/screen/introlduction/intro_provider.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,23 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../account/create_account.dart';
 
-// TODO(bac): fix warning, các màn khác sửa tương tự
+class IntroProvider extends ChangeNotifier {
+  bool _isChecked = false;
+  bool _isAbsorb = true;
+
+  bool get isChecked => _isChecked;
+  bool get isAbsorb => _isAbsorb;
+  void setIsChecked(bool isNewChecked) {
+    _isChecked = isNewChecked;
+    notifyListeners();
+  }
+
+  void setIsAbsorb() {
+    _isAbsorb = !isAbsorb;
+    notifyListeners();
+  }
+}
+
 class IntroScreen extends StatelessWidget {
   final _controller = PageController(
     initialPage: 0,
@@ -86,102 +101,103 @@ class IntroScreen extends StatelessWidget {
   }
 
   Widget myPage3({required BuildContext context}) {
-    // bool value = context.watch<IntroProvider>().isAbsorb;
-    return Container(
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            Expanded(
-                flex: 3,
-                child: Text(
-                  AppString.CONTENT3,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 28, color: Colors.white),
-                )),
-            Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    child: Text("Terms of service",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline)),
-                    onTap: () {
-                      // TODO(bac): sử dụng provider thay setState
-                      // setState(() {});
-
-                      context.watch<IntroProvider>().setIsAbsorb();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WebViewAccep()));
-                      // print(value);
-                    },
-                  ),
-                  Icon(
-                    Icons.open_in_new,
-                    color: Colors.white,
-                    size: 15,
-                  )
-                ],
+    bool value = context.watch<IntroProvider>().isAbsorb;
+    return Provider.value(
+      value: value,
+      child: Container(
+          alignment: Alignment.topCenter,
+          child: Column(
+            children: [
+              Expanded(
+                  flex: 3,
+                  child: Text(
+                    AppString.CONTENT3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 28, color: Colors.white),
+                  )),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      child: Text("Terms of service",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              decoration: TextDecoration.underline)),
+                      onTap: () {
+                        // TODO(bac): sử dụng provider thay setState
+                        // setState(() {});
+                        context.read<IntroProvider>().setIsAbsorb();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WebViewAccep()));
+                      },
+                    ),
+                    Icon(
+                      Icons.open_in_new,
+                      color: Colors.white,
+                      size: 15,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: AbsorbPointer(
-                absorbing: context.watch<IntroProvider>().isAbsorb,
-                child: Opacity(
-                  opacity: context.watch<IntroProvider>().isAbsorb ? 0.5 : 1,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            checkBox(),
-                            Text(
-                              AppString.ACCEPT,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 25),
-                          child: Consumer<IntroProvider>(
-                            builder: (BuildContext context, model, child) =>
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.lightBlue,
-                                      onPrimary: Colors.white,
-                                      fixedSize: Size(
-                                          MediaQuery.of(context).size.width,
-                                          20),
-                                    ),
-                                    onPressed: () {
-                                      if (model.isChecked)
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CreateAccount()),
-                                            (route) => false);
-                                    },
-                                    child: Text("Go Home")),
+              Expanded(
+                child: AbsorbPointer(
+                  absorbing: value,
+                  child: Opacity(
+                    opacity: value ? 0.5 : 1,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              checkBox(),
+                              Text(
+                                AppString.ACCEPT,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 25),
+                            child: Consumer<IntroProvider>(
+                              builder: (BuildContext context, model, child) =>
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.lightBlue,
+                                        onPrimary: Colors.white,
+                                        fixedSize: Size(
+                                            MediaQuery.of(context).size.width,
+                                            20),
+                                      ),
+                                      onPressed: () {
+                                        if (model.isChecked)
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreateAccount()),
+                                              (route) => false);
+                                      },
+                                      child: Text("Go Home")),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }

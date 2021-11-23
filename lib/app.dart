@@ -1,4 +1,4 @@
-import 'package:dream/screen/introlduction/intro_provider.dart';
+import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/introlduction/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => IntroProvider()),
+        ChangeNotifierProvider(create: (context) => CreateProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

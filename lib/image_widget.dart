@@ -7,9 +7,10 @@ import 'package:image_picker/image_picker.dart';
 class ImageWidget extends StatelessWidget {
   final File image;
   final ValueChanged<ImageSource> onclicked;
-  const ImageWidget({Key? key,
-        required this.image,
-        required this.onclicked,
+  const ImageWidget({
+    Key? key,
+    required this.image,
+    required this.onclicked,
   }) : super(key: key);
 
   @override
@@ -19,21 +20,21 @@ class ImageWidget extends StatelessWidget {
     );
   }
 
-  Widget buildImage(BuildContext context){
+  Widget buildImage(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final imagePath = this.image.path;
-    final image = imagePath.contains('https://')
-          ? NetworkImage(imagePath)
-          : FileImage(File(imagePath));
+    final image = FileImage(File(imagePath));
 
     return GestureDetector(
       child: Material(
-        child: Ink.image(image: image as ImageProvider,fit: BoxFit.cover,
+        child: Ink.image(
+          image: image as ImageProvider,
+          fit: BoxFit.cover,
           // TODO(bac): format code, choose format on save in setting
-          width: size.width*1/3,
-          height: size.width*1/3,
+          width: size.width * 1 / 3,
+          height: size.width * 1 / 3,
           child: InkWell(
-            onTap: () async{
+            onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
               onclicked(source);
@@ -43,40 +44,44 @@ class ImageWidget extends StatelessWidget {
       ),
     );
   }
-
 }
+
 Future<ImageSource?> showImageSource(BuildContext context) async {
-  if(Platform.isIOS){
-    return showCupertinoModalPopup<ImageSource>(context: context,
+  if (Platform.isIOS) {
+    return showCupertinoModalPopup<ImageSource>(
+        context: context,
         builder: (context) => CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
-              child: Text("Camera"),
-              onPressed: () =>Navigator.of(context).pop(ImageSource.camera),
-            ),
-            CupertinoActionSheetAction(
-              child: Text("Galley"),
-              onPressed: () =>Navigator.of(context).pop(ImageSource.gallery),
-            ),
-          ],
-        ));
+              actions: [
+                CupertinoActionSheetAction(
+                  // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
+                  child: Text("Camera"),
+                  onPressed: () =>
+                      Navigator.of(context).pop(ImageSource.camera),
+                ),
+                CupertinoActionSheetAction(
+                  child: Text("Galley"),
+                  onPressed: () =>
+                      Navigator.of(context).pop(ImageSource.gallery),
+                ),
+              ],
+            ));
   } else {
-    return showModalBottomSheet(context: context,
+    return showModalBottomSheet(
+        context: context,
         builder: (context) => Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: Icon(Icons.camera_alt),
-              title: Text("Camera"),
-              onTap: () => Navigator.of(context).pop(ImageSource.camera),
-            ),
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Gallery"),
-              onTap: () => Navigator.of(context).pop(ImageSource.gallery),
-            )
-          ],
-        ));
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text("Camera"),
+                  onTap: () => Navigator.of(context).pop(ImageSource.camera),
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo),
+                  title: Text("Gallery"),
+                  onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+                )
+              ],
+            ));
   }
 }

@@ -7,68 +7,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
-// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+class CreateProvider extends ChangeNotifier {
+  var image;
 
-  @override
-  _CreateAccountState createState() => _CreateAccountState();
+  DateTime _date = DateTime.now();
+
+  DateTime get date => _date;
+  Future setImage(var file) async {
+    this.image = file;
+    this.notifyListeners();
+  }
+
+  void setDate(DateTime isNewDate) {
+    _date = isNewDate;
+    notifyListeners();
+  }
 }
 
+// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án
+class CreateAccount extends StatelessWidget {
 // TODO(bac): search lại cách dùng TextEditingController
-final TextEditingController _nameController = TextEditingController();
-final TextEditingController _lifeSpanController =
-    TextEditingController(text: "Year");
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _lifeSpanController =
+      TextEditingController(text: "Year");
 
-class _CreateAccountState extends State<CreateAccount> {
   File? image;
-  DateTime _date = DateTime.now();
   String value = "Year";
-  Future pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
-
-      // final imageTemporary = File(image.path);
-      final imagePermanent = await saveImagepermanently(image.path);
-      setState(() => this.image = imagePermanent);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
-
-  Future<File> saveImagepermanently(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
-    final image = File("${directory.path}/$name");
-
-    return File(imagePath).copy(image.path);
-  }
-
-  void showDatePicker() {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-            height: MediaQuery.of(context).copyWith().size.height * 0.25,
-            color: Colors.white,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              onDateTimeChanged: (value) {
-                if (value != _date)
-                  setState(() {
-                    _date = value;
-                  });
-              },
-              initialDateTime: _date,
-              maximumYear: 2100,
-              minimumYear: 1900,
-            ),
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,11 +79,11 @@ class _CreateAccountState extends State<CreateAccount> {
                   image != null
                       ? ImageWidget(
                           image: image!,
-                          onclicked: (source) => pickImage(ImageSource.gallery))
+                          onclicked: (source) => pickImage(source))
                       : GestureDetector(
                           onTap: () {
                             showImageSource(context);
-                            pickImage(ImageSource.gallery);
+                            // pickImage(ImageSource.gallery);
                           },
                           child: Container(
                             height: size.width * 1 / 3,
@@ -160,15 +126,19 @@ class _CreateAccountState extends State<CreateAccount> {
                                   Text("Birthday"),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        showDatePicker();
-                                      },
-                                      child: Text(
-                                        "${_date.day} / ${_date.month} / ${_date.year}",
-                                        style: TextStyle(
-                                            color: Colors.black38,
-                                            fontSize: 15),
+                                    child: Consumer<CreateProvider>(
+                                      builder: (BuildContext context, model,
+                                              child) =>
+                                          GestureDetector(
+                                        onTap: () {
+                                          showDatePicker(context);
+                                        },
+                                        child: Text(
+                                          "${model.date.day} / ${model.date.month} / ${model.date.year}",
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              fontSize: 15),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -234,8 +204,6 @@ class _CreateAccountState extends State<CreateAccount> {
       ),
     );
   }
-
-  basename(String imagePath) {}
 }
 
 class TriangleClipper extends CustomClipper<Path> {
@@ -251,4 +219,32 @@ class TriangleClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(TriangleClipper oldClipper) => false;
+}
+
+void showDatePicker(BuildContext context) {
+  showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: MediaQuery.of(context).copyWith().size.height * 0.25,
+          color: Colors.white,
+          child: Consumer<CreateProvider>(
+            builder: (BuildContext context, model, child) =>
+                CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (isNewDate) {
+                if (isNewDate != model.date) model.setDate(isNewDate);
+              },
+              initialDateTime: model.date,
+              maximumYear: 2100,
+              minimumYear: 1900,
+            ),
+          ),
+        );
+      });
+}
+
+Future pickImage(ImageSource source) async {
+  XFile? image = await ImagePicker().pickImage(source: source);
+  if (image == null) return;
 }
