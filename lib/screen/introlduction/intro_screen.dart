@@ -1,12 +1,10 @@
-import 'dart:ui';
 import 'package:dream/app_string.dart';
+import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../account/create_account.dart';
 
 class IntroProvider extends ChangeNotifier {
   bool _isChecked = false;
@@ -127,8 +125,6 @@ class IntroScreen extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               decoration: TextDecoration.underline)),
                       onTap: () {
-                        // TODO(bac): sử dụng provider thay setState
-                        // setState(() {});
                         context.read<IntroProvider>().setIsAbsorb();
                         Navigator.push(
                             context,

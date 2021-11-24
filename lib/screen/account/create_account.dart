@@ -1,22 +1,24 @@
 import 'dart:io';
 
 import 'package:dream/app_string.dart';
-import 'package:dream/image_widget.dart';
 import 'package:dream/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class CreateProvider extends ChangeNotifier {
-  var image;
+  File? _image;
 
   DateTime _date = DateTime.now();
 
   DateTime get date => _date;
-  Future setImage(var file) async {
-    this.image = file;
+
+  File? get image => _image;
+  Future setImage() async {
+    this._image = _image;
     this.notifyListeners();
   }
 
@@ -27,14 +29,17 @@ class CreateProvider extends ChangeNotifier {
 }
 
 // TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án
-class CreateAccount extends StatelessWidget {
+class CreateAccount extends StatefulWidget {
+  @override
+  _CreateAccountState createState() => _CreateAccountState();
+}
+
+class _CreateAccountState extends State<CreateAccount> {
 // TODO(bac): search lại cách dùng TextEditingController
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lifeSpanController =
       TextEditingController(text: "Year");
-
-  File? image;
-  String value = "Year";
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +81,7 @@ class CreateAccount extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  image != null
-                      ? ImageWidget(
-                          image: image!,
-                          onclicked: (source) => pickImage(source))
-                      : GestureDetector(
-                          onTap: () {
-                            showImageSource(context);
-                            // pickImage(ImageSource.gallery);
-                          },
-                          child: Container(
-                            height: size.width * 1 / 3,
-                            width: size.width * 1 / 3,
-                            decoration: BoxDecoration(color: Colors.grey),
-                            child: Icon(
-                              Icons.add_photo_alternate_outlined,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                          )),
+                  imageSetting(context: context),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
@@ -204,6 +191,98 @@ class CreateAccount extends StatelessWidget {
       ),
     );
   }
+
+  Widget imageSetting({required BuildContext context}) {
+    Size size = MediaQuery.of(context).size;
+
+    return Consumer<CreateProvider>(
+      builder: (BuildContext context, value, child) => _image != null
+          ? GestureDetector(
+              onTap: () {
+                showImageSource(context);
+              },
+              child: Image.file(
+                _image!,
+                width: size.width / 3,
+                height: size.width / 3,
+                fit: BoxFit.cover,
+              ),
+            )
+          : GestureDetector(
+              onTap: () {
+                showImageSource(context);
+              },
+              child: Container(
+                height: size.width / 3,
+                width: size.width / 3,
+                decoration: BoxDecoration(color: Colors.grey),
+                child: Icon(
+                  Icons.add_photo_alternate_outlined,
+                  size: 50,
+                  color: Colors.white,
+                ),
+              )),
+    );
+  }
+
+  Future pickImage(ImageSource source) async {
+    XFile? imagePicker = await ImagePicker().pickImage(source: source);
+    // if (imagePicker == null) return;
+    _cropImage(imagePicker!.path);
+  }
+
+  _cropImage(filePath) async {
+    File? croppedImage = await ImageCropper.cropImage(
+        sourcePath: filePath,
+        maxWidth: 1080,
+        maxHeight: 1080,
+        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
+    if (croppedImage != null) {
+      _image = croppedImage;
+      setState(() {});
+      // context.watch<CreateProvider>().image;
+    }
+  }
+
+  Future<ImageSource?> showImageSource(BuildContext context) async {
+    if (Platform.isIOS) {
+      return showCupertinoModalPopup<ImageSource>(
+          context: context,
+          builder: (context) => CupertinoActionSheet(
+                actions: [
+                  CupertinoActionSheetAction(
+                      // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
+                      child: Text("Camera"),
+                      onPressed: () => pickImage(ImageSource.camera)),
+                  CupertinoActionSheetAction(
+                      child: Text("Galley"),
+                      onPressed: () => pickImage(ImageSource.gallery)),
+                ],
+              ));
+    } else {
+      return showModalBottomSheet(
+          context: context,
+          builder: (context) => Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                      leading: Icon(Icons.camera_alt),
+                      title: Text("Camera"),
+                      onTap: () {
+                        pickImage(ImageSource.camera);
+                        Navigator.of(context).pop();
+                      }),
+                  ListTile(
+                      leading: Icon(Icons.photo),
+                      title: Text("Gallery"),
+                      onTap: () {
+                        pickImage(ImageSource.gallery);
+                        Navigator.of(context).pop();
+                      })
+                ],
+              ));
+    }
+  }
 }
 
 class TriangleClipper extends CustomClipper<Path> {
@@ -242,9 +321,4 @@ void showDatePicker(BuildContext context) {
           ),
         );
       });
-}
-
-Future pickImage(ImageSource source) async {
-  XFile? image = await ImagePicker().pickImage(source: source);
-  if (image == null) return;
 }
