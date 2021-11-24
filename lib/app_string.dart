@@ -6,4 +6,6 @@ class AppString {
   static const String CONTENT3 =
       "Don’t stop when you are tired. Stop when you are done - Marilyn Monroe.";
   static const String ACCEPT = "I have read and agree to the above terms";
+  static const String Camera = "Camera";
+  static const String Gallery = "Gallery";
 }

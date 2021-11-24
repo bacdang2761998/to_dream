@@ -31,7 +31,7 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.lightBlue,
       body: Stack(children: [
         Container(
           alignment: Alignment.center,

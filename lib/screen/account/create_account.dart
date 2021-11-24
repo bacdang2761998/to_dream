@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:dream/app_string.dart';
 import 'package:dream/home_screen.dart';
+import 'package:dream/screen/account/image_setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 class CreateProvider extends ChangeNotifier {
   File? _image;
@@ -17,9 +16,10 @@ class CreateProvider extends ChangeNotifier {
   DateTime get date => _date;
 
   File? get image => _image;
-  Future setImage() async {
-    this._image = _image;
-    this.notifyListeners();
+
+  Future setImage(var imagePicker) async {
+    _image = imagePicker;
+    notifyListeners();
   }
 
   void setDate(DateTime isNewDate) {
@@ -39,7 +39,13 @@ class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lifeSpanController =
       TextEditingController(text: "Year");
-  File? _image;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _nameController.dispose();
+    _lifeSpanController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +87,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               child: Row(
                 children: [
-                  imageSetting(context: context),
+                  ImageSetting(),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
@@ -190,98 +196,6 @@ class _CreateAccountState extends State<CreateAccount> {
         ),
       ),
     );
-  }
-
-  Widget imageSetting({required BuildContext context}) {
-    Size size = MediaQuery.of(context).size;
-
-    return Consumer<CreateProvider>(
-      builder: (BuildContext context, value, child) => _image != null
-          ? GestureDetector(
-              onTap: () {
-                showImageSource(context);
-              },
-              child: Image.file(
-                _image!,
-                width: size.width / 3,
-                height: size.width / 3,
-                fit: BoxFit.cover,
-              ),
-            )
-          : GestureDetector(
-              onTap: () {
-                showImageSource(context);
-              },
-              child: Container(
-                height: size.width / 3,
-                width: size.width / 3,
-                decoration: BoxDecoration(color: Colors.grey),
-                child: Icon(
-                  Icons.add_photo_alternate_outlined,
-                  size: 50,
-                  color: Colors.white,
-                ),
-              )),
-    );
-  }
-
-  Future pickImage(ImageSource source) async {
-    XFile? imagePicker = await ImagePicker().pickImage(source: source);
-    // if (imagePicker == null) return;
-    _cropImage(imagePicker!.path);
-  }
-
-  _cropImage(filePath) async {
-    File? croppedImage = await ImageCropper.cropImage(
-        sourcePath: filePath,
-        maxWidth: 1080,
-        maxHeight: 1080,
-        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
-    if (croppedImage != null) {
-      _image = croppedImage;
-      setState(() {});
-      // context.watch<CreateProvider>().image;
-    }
-  }
-
-  Future<ImageSource?> showImageSource(BuildContext context) async {
-    if (Platform.isIOS) {
-      return showCupertinoModalPopup<ImageSource>(
-          context: context,
-          builder: (context) => CupertinoActionSheet(
-                actions: [
-                  CupertinoActionSheetAction(
-                      // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
-                      child: Text("Camera"),
-                      onPressed: () => pickImage(ImageSource.camera)),
-                  CupertinoActionSheetAction(
-                      child: Text("Galley"),
-                      onPressed: () => pickImage(ImageSource.gallery)),
-                ],
-              ));
-    } else {
-      return showModalBottomSheet(
-          context: context,
-          builder: (context) => Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                      leading: Icon(Icons.camera_alt),
-                      title: Text("Camera"),
-                      onTap: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.of(context).pop();
-                      }),
-                  ListTile(
-                      leading: Icon(Icons.photo),
-                      title: Text("Gallery"),
-                      onTap: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.of(context).pop();
-                      })
-                ],
-              ));
-    }
   }
 }
 
