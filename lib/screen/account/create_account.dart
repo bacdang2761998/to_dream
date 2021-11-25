@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dream/app_string.dart';
 import 'package:dream/screen/bottom_bar/bottom_bar.dart';
-import 'package:dream/screen/time_line/time_line_screen.dart';
 import 'package:dream/screen/account/image_setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,6 @@ class _CreateAccountState extends State<CreateAccount> {
       TextEditingController(text: "Year");
   @override
   void dispose() {
-    // TODO: implement dispose
     _nameController.dispose();
     _lifeSpanController.dispose();
     super.dispose();

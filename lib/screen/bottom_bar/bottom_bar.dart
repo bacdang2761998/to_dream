@@ -15,18 +15,26 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int selectedIndex = 0;
-  Widget _homeScreen = TimeLineScreen();
-  Widget _chatScreen = A2();
-  Widget _photoScreen = A3();
-  Widget _groupScreen = A4();
+  Widget _timeLineScreen = TimeLineScreen();
+  Widget _targetScreen = TargetScreen();
+  Widget _smartScreen = SmartScreen();
+  Widget _targetTableScreen = TargetTableScreen();
   Widget _optionScreen = OptionScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "Time Line",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(
+            Icons.help,
+            color: Colors.white,
+          ),
           onPressed: () {},
         ),
         actions: [
@@ -35,7 +43,10 @@ class _BottomBarState extends State<BottomBar> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateAccount()));
               },
-              icon: Icon(Icons.settings))
+              icon: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ))
         ],
       ),
       body: _buildBody(),
@@ -47,31 +58,20 @@ class _BottomBarState extends State<BottomBar> {
           type: BottomNavigationBarType.fixed,
           currentIndex: this.selectedIndex,
           backgroundColor: Colors.white,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                backgroundColor:
-                    this.selectedIndex == 0 ? Colors.green : Colors.white60,
-                label: "Home"),
+                icon: Icon(Icons.lock_clock), label: "Time Line"),
+            BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Target"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.chat),
-                backgroundColor:
-                    this.selectedIndex == 1 ? Colors.green : Colors.white60,
-                label: "Chat"),
+                icon: Icon(Icons.picture_in_picture), label: "Smart"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.picture_in_picture),
-                backgroundColor:
-                    this.selectedIndex == 2 ? Colors.green : Colors.white60,
-                label: "Photo"),
+                icon: Icon(Icons.group), label: "Target Table"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.group),
+                icon: Icon(Icons.menu),
                 backgroundColor:
-                    this.selectedIndex == 3 ? Colors.green : Colors.white60,
-                label: "Group"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                backgroundColor:
-                    this.selectedIndex == 4 ? Colors.green : Colors.white60,
+                    this.selectedIndex == 4 ? Colors.blue : Colors.grey,
                 label: "Option"),
           ],
           onTap: (int index) {
@@ -84,13 +84,13 @@ class _BottomBarState extends State<BottomBar> {
 
   Widget _buildBody() {
     if (this.selectedIndex == 0) {
-      return this._homeScreen;
+      return this._timeLineScreen;
     } else if (this.selectedIndex == 1) {
-      return this._chatScreen;
+      return this._targetScreen;
     } else if (this.selectedIndex == 2) {
-      return this._photoScreen;
+      return this._smartScreen;
     } else if (this.selectedIndex == 3) {
-      return this._groupScreen;
+      return this._targetTableScreen;
     } else {
       return this._optionScreen;
     }

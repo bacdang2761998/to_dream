@@ -14,18 +14,18 @@ class ImageSetting extends StatefulWidget {
 }
 
 class _ImageSettingState extends State<ImageSetting> {
-  File? _image;
+  File? image;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return _image != null
+    return image != null
         ? GestureDetector(
             onTap: () {
               showImageSource(context);
             },
             child: Image.file(
-              _image!,
+              image!,
               width: size.width / 3,
               height: size.width / 3,
               fit: BoxFit.cover,
@@ -54,7 +54,6 @@ class _ImageSettingState extends State<ImageSetting> {
           builder: (context) => CupertinoActionSheet(
                 actions: [
                   CupertinoActionSheetAction(
-                      // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
                       child: Text(AppString.Camera),
                       onPressed: () => pickImage(ImageSource.camera)),
                   Divider(),
@@ -101,7 +100,7 @@ class _ImageSettingState extends State<ImageSetting> {
         maxHeight: 1080,
         aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
     if (croppedImage != null) {
-      _image = croppedImage;
+      image = croppedImage;
       setState(() {});
     }
   }
