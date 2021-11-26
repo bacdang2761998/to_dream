@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dream/app_string.dart';
-import 'package:dream/home_screen.dart';
+import 'package:dream/screen/bottom_bar/bottom_bar.dart';
 import 'package:dream/screen/account/image_setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class _CreateAccountState extends State<CreateAccount> {
           TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                    MaterialPageRoute(builder: (context) => BottomBar()));
               },
               child: Text(
                 "Done",
