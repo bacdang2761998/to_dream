@@ -28,20 +28,17 @@ class CreateProvider extends ChangeNotifier {
   }
 }
 
-// TODO(bac): Tìm hiểu lint cho dart và apply lint vào dự án
 class CreateAccount extends StatefulWidget {
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-// TODO(bac): search lại cách dùng TextEditingController
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lifeSpanController =
       TextEditingController(text: "Year");
   @override
   void dispose() {
-    // TODO: implement dispose
     _nameController.dispose();
     _lifeSpanController.dispose();
     super.dispose();
@@ -167,7 +164,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       width: 50,
                     ),
                   ),
-                  // TODO(bac): set luon padding trong container
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
                     child: Container(

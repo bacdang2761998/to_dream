@@ -54,7 +54,6 @@ class _ImageSettingState extends State<ImageSetting> {
           builder: (context) => CupertinoActionSheet(
                 actions: [
                   CupertinoActionSheetAction(
-                      // TODO(bac): text Camera, Galley dùng nhiều thì khai báo const
                       child: Text(AppString.Camera),
                       onPressed: () => pickImage(ImageSource.camera)),
                   Divider(),
