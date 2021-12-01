@@ -69,7 +69,7 @@ class _CreateAccountState extends State<CreateAccount> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/ic_background.png"),
+                image: AssetImage("assets/images/background.png"),
                 fit: BoxFit.cover)),
         child: Column(
           children: [

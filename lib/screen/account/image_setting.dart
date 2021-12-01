@@ -102,6 +102,7 @@ class _ImageSettingState extends State<ImageSetting> {
     if (croppedImage != null) {
       image = croppedImage;
       setState(() {});
-    }
+    } else
+      return;
   }
 }

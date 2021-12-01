@@ -1,8 +1,7 @@
-import 'package:dream/screen/2/2.dart';
 import 'package:dream/screen/3/3.dart';
 import 'package:dream/screen/4/4.dart';
-import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/option/option_screen.dart';
+import 'package:dream/screen/target_screen/target_screen.dart';
 import 'package:dream/screen/time_line/time_line_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,31 +23,6 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Time Line",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.help,
-            color: Colors.white,
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CreateAccount()));
-              },
-              icon: Icon(
-                Icons.settings,
-                color: Colors.white,
-              ))
-        ],
-      ),
       body: _buildBody(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [
