@@ -17,18 +17,10 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   final _controller = PageController(
     initialPage: 0,
   );
-  late AnimationController animationController;
-  late Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
     _controller.dispose();
-    animationController.dispose();
     super.dispose();
   }
 
@@ -124,10 +116,15 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
         '100 Year',
         style: TextStyle(fontSize: 24),
       ),
-      Text(
-        "28.8 Point",
-        style: TextStyle(color: Colors.blue, fontSize: 36),
-      ),
+      TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0, end: 28.86),
+          duration: Duration(milliseconds: 700),
+          builder: (BuildContext context, double value, child) {
+            return Text(
+              "${value.toStringAsFixed(2)} Point",
+              style: TextStyle(color: Colors.blue, fontSize: 36),
+            );
+          }),
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
         child: CircularPercentIndicator(

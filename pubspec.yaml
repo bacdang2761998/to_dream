@@ -37,7 +37,6 @@ dependencies:
   percent_indicator: ^3.0.1
   pedantic_mono: any
   syncfusion_flutter_datagrid: ^19.3.55
-  animated_flip_counter: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
