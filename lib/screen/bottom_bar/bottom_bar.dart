@@ -1,7 +1,7 @@
-import 'package:dream/screen/3/3.dart';
-import 'package:dream/screen/4/4.dart';
 import 'package:dream/screen/option/option_screen.dart';
+import 'package:dream/screen/smart/smart_screen.dart';
 import 'package:dream/screen/target_screen/target_screen.dart';
+import 'package:dream/screen/target_table/target_table_screen.dart';
 import 'package:dream/screen/time_line/time_line_screen.dart';
 import 'package:flutter/material.dart';
 

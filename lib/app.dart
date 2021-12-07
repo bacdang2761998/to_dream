@@ -1,5 +1,6 @@
 import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/introlduction/intro_screen.dart';
+import 'package:dream/screen/target_table/target_table_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +10,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => IntroProvider()),
-        ChangeNotifierProvider(create: (context) => CreateProvider()),
+        ChangeNotifierProvider(create: (_) => IntroProvider()),
+        ChangeNotifierProvider(create: (_) => CreateProvider()),
+        ChangeNotifierProvider(create: (_) => TargetTableProvider()),
       ],
       child: MaterialApp(
         title: 'To Dream',
