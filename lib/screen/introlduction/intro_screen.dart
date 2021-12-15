@@ -1,4 +1,4 @@
-import 'package:dream/app_string.dart';
+import 'package:dream/app_other/app_string.dart';
 import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/introlduction/introl_provider.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';

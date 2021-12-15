@@ -1,4 +1,4 @@
-import 'package:dream/model/target_model.dart';
+import 'package:dream/screen/target_table/target_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
