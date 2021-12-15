@@ -1,27 +1,11 @@
 import 'package:dream/app_string.dart';
 import 'package:dream/screen/account/create_account.dart';
+import 'package:dream/screen/introlduction/introl_provider.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-class IntroProvider extends ChangeNotifier {
-  bool _isChecked = false;
-  bool _isAbsorb = true;
-
-  bool get isChecked => _isChecked;
-  bool get isAbsorb => _isAbsorb;
-  void setIsChecked(bool isNewChecked) {
-    _isChecked = isNewChecked;
-    notifyListeners();
-  }
-
-  void setIsAbsorb() {
-    _isAbsorb = !isAbsorb;
-    notifyListeners();
-  }
-}
 
 class IntroScreen extends StatelessWidget {
   final _controller = PageController(
@@ -35,13 +19,16 @@ class IntroScreen extends StatelessWidget {
       body: Stack(children: [
         Container(
           alignment: Alignment.center,
-          // padding: EdgeInsets.only(top: 40),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 160, 20, 10),
             child: PageView(
               controller: _controller,
               scrollDirection: Axis.horizontal,
-              children: [myPage1(), myPage2(), myPage3(context: context)],
+              children: [
+                myPage(content: AppString.CONTENT1),
+                myPage(content: AppString.CONTENT3),
+                myPage3(context: context)
+              ],
             ),
           ),
         ),
@@ -82,18 +69,10 @@ class IntroScreen extends StatelessWidget {
     );
   }
 
-  Widget myPage1({Color backgroundColor = Colors.lightBlue}) {
-    return Container(
-        color: backgroundColor,
-        child: Text(AppString.CONTENT1,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 28, color: Colors.white)));
-  }
-
-  Widget myPage2() {
+  Widget myPage({required String content}) {
     return Container(
         color: Colors.lightBlue,
-        child: Text(AppString.CONTENT2,
+        child: Text(content,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 28, color: Colors.white)));
   }
@@ -114,12 +93,11 @@ class IntroScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 28, color: Colors.white),
                   )),
               Expanded(
-                flex: 1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: Text("Terms of service",
+                      child: Text(" Terms of service ",
                           style: TextStyle(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
@@ -140,7 +118,7 @@ class IntroScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
+              Flexible(
                 child: AbsorbPointer(
                   absorbing: value,
                   child: Opacity(
@@ -148,7 +126,6 @@ class IntroScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 1,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -161,7 +138,6 @@ class IntroScreen extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 25),
                             child: Consumer<IntroProvider>(

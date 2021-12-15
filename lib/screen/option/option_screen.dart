@@ -17,7 +17,10 @@ class _OptionScreenState extends State<OptionScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Option"),
+        title: Text(
+          "Option",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

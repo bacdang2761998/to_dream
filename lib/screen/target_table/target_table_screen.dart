@@ -1,46 +1,7 @@
-import 'package:dream/model/target_model.dart';
+import 'package:dream/screen/help/help_screen.dart';
+import 'package:dream/screen/target_table/target_table_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-class TargetTableProvider with ChangeNotifier {
-  bool isCheckedTarget = false;
-  final _tagetTables = [
-    TargetModel(
-        color: Color(0xFF43CD80),
-        title: 'Relationship',
-        icon: Icon(Icons.family_restroom)),
-    TargetModel(
-        color: Color(0xFFffba00), title: 'Health', icon: Icon(Icons.favorite)),
-    TargetModel(
-        color: Color(0xFF0f52ba), title: 'Education', icon: Icon(Icons.school)),
-    TargetModel(
-        color: Color(0xFFf4a460),
-        title: 'Self',
-        icon: Icon(Icons.perm_identity)),
-    TargetModel(
-        color: Color(0xFF54ff9f),
-        title: 'Work',
-        icon: Icon(Icons.business_center)),
-    TargetModel(
-        color: Color(0xFFff2400), title: 'Money', icon: Icon(Icons.favorite)),
-  ];
-
-  List<TargetModel> get targetTables => _tagetTables;
-
-  // int get targetCount {
-  //   return _tagetTables.length;
-  // }
-
-  void setCheckedTable(bool isNewCheckedTarget) {
-    isCheckedTarget = isNewCheckedTarget;
-    notifyListeners();
-  }
-
-  void setColorTable(Color setColor, int index) {
-    targetTables[index].color = setColor;
-    notifyListeners();
-  }
-}
 
 class TargetTableScreen extends StatefulWidget {
   const TargetTableScreen({Key? key}) : super(key: key);
@@ -60,7 +21,22 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Target Table',
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.help,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HelpScreen()));
+            },
+          )),
       body: SingleChildScrollView(
         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Column(

@@ -1,32 +1,12 @@
-import 'dart:io';
-
-import 'package:dream/app_string.dart';
+import 'package:dream/app_other/app_string.dart';
+import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/bottom_bar/bottom_bar.dart';
-import 'package:dream/screen/account/image_setting.dart';
+import 'package:dream/screen/account/image_setting_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-class CreateProvider extends ChangeNotifier {
-  File? _image;
-
-  DateTime _date = DateTime.now();
-
-  DateTime get date => _date;
-
-  File? get image => _image;
-
-  Future setImage(var imagePicker) async {
-    _image = imagePicker;
-    notifyListeners();
-  }
-
-  void setDate(DateTime isNewDate) {
-    _date = isNewDate;
-    notifyListeners();
-  }
-}
+import 'dart:core';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -53,7 +33,10 @@ class _CreateAccountState extends State<CreateAccount> {
         elevation: 5,
         backgroundColor: Colors.blue,
         centerTitle: true,
-        title: Text("Create New Account"),
+        title: Text(
+          "Create New Account",
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           TextButton(
               onPressed: () {
@@ -84,7 +67,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               child: Row(
                 children: [
-                  ImageSetting(),
+                  ImageSettingScreen(),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
@@ -116,7 +99,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   Text("Birthday"),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
-                                    child: Consumer<CreateProvider>(
+                                    child: Consumer<AccountProvider>(
                                       builder: (BuildContext context, model,
                                               child) =>
                                           GestureDetector(
@@ -217,7 +200,7 @@ void showDatePicker(BuildContext context) {
         return Container(
           height: MediaQuery.of(context).copyWith().size.height * 0.25,
           color: Colors.white,
-          child: Consumer<CreateProvider>(
+          child: Consumer<AccountProvider>(
             builder: (BuildContext context, model, child) =>
                 CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,

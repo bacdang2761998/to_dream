@@ -1,3 +1,4 @@
+import 'package:dream/screen/help/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -34,9 +35,11 @@ class _TargetScreenState extends State<TargetScreen> {
             Icons.help,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HelpScreen()));
+          },
         ),
-        // actions: [],
       ),
       body: Stack(
         alignment: Alignment.center,

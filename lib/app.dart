@@ -1,6 +1,7 @@
-import 'package:dream/screen/account/create_account.dart';
+import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/introlduction/intro_screen.dart';
-import 'package:dream/screen/target_table/target_table_screen.dart';
+import 'package:dream/screen/introlduction/introl_provider.dart';
+import 'package:dream/screen/target_table/target_table_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => IntroProvider()),
-        ChangeNotifierProvider(create: (_) => CreateProvider()),
+        ChangeNotifierProvider(create: (_) => AccountProvider()),
         ChangeNotifierProvider(create: (_) => TargetTableProvider()),
       ],
       child: MaterialApp(

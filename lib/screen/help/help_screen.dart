@@ -28,9 +28,15 @@ class _HelpScreenState extends State<HelpScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.exit_to_app))
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ))
           ],
-          title: Text("Support"),
+          title: Text(
+            "Support",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

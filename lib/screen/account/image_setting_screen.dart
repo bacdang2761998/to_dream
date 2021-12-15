@@ -1,19 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../app_string.dart';
+import '../../app_other/app_string.dart';
 
-class ImageSetting extends StatefulWidget {
-  const ImageSetting({Key? key}) : super(key: key);
+class ImageSettingScreen extends StatefulWidget {
+  const ImageSettingScreen({Key? key}) : super(key: key);
 
   @override
-  _ImageSettingState createState() => _ImageSettingState();
+  _ImageSettingScreenState createState() => _ImageSettingScreenState();
 }
 
-class _ImageSettingState extends State<ImageSetting> {
+class _ImageSettingScreenState extends State<ImageSettingScreen> {
   File? image;
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,8 @@ class _ImageSettingState extends State<ImageSetting> {
 
   Future<void> pickImage(ImageSource source) async {
     XFile? imagePicker = await ImagePicker().pickImage(source: source);
-    _cropImage(imagePicker!.path);
+    if (imagePicker == null) return;
+    _cropImage(imagePicker.path);
   }
 
   Future<void> _cropImage(filePath) async {
