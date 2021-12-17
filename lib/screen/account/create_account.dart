@@ -196,7 +196,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void checkDone() {
     if (_nameController.text.isEmpty || _lifeSpanController.text.isEmpty) {
-      checkPathImage(null);
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -217,11 +216,6 @@ class _CreateAccountState extends State<CreateAccount> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => BottomBar()));
     }
-  }
-
-  void checkPathImage(String? path) {
-    path ?? "";
-    print(path);
   }
 }
 

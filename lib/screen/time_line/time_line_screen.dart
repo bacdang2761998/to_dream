@@ -158,7 +158,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: checkImage(value.account?.avataAccount)
+                  child: checkPathImage(value.account?.avataAccount)
                       ? ClipOval(
                           child: Image.file(
                             File(value.account!.avataAccount!),
@@ -183,12 +183,8 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
     );
   }
 
-  bool checkImage(String? path) {
-    if (path != null && path.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
+  bool checkPathImage(String? path) {
+    return (path ?? '').isNotEmpty;
   }
 
   Widget timeLineAddView({required BuildContext context}) {
