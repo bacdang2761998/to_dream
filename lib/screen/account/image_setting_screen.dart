@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:dream/screen/account/account_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app_other/app_string.dart';
 
 class ImageSettingScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class ImageSettingScreen extends StatefulWidget {
 
 class _ImageSettingScreenState extends State<ImageSettingScreen> {
   File? image;
+  final account = Account();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -63,27 +66,29 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
               ));
     } else {
       return showModalBottomSheet(
-          context: context,
-          builder: (context) => Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                      leading: Icon(Icons.camera_alt),
-                      title: Text(AppString.Camera),
-                      onTap: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.of(context).pop();
-                      }),
-                  Divider(),
-                  ListTile(
-                      leading: Icon(Icons.photo),
-                      title: Text(AppString.Gallery),
-                      onTap: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.of(context).pop();
-                      })
-                ],
-              ));
+        context: context,
+        builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text(AppString.Camera),
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                }),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.photo),
+              title: Text(AppString.Gallery),
+              onTap: () {
+                pickImage(ImageSource.gallery);
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      );
     }
   }
 
@@ -94,14 +99,18 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
   }
 
   Future<void> _cropImage(filePath) async {
+    final preferences = await SharedPreferences.getInstance();
+
     File? croppedImage = await ImageCropper.cropImage(
         sourcePath: filePath,
         maxWidth: 1080,
         maxHeight: 1080,
         aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
     if (croppedImage != null) {
-      image = croppedImage;
-      setState(() {});
+      setState(() {
+        image = croppedImage;
+      });
+      await preferences.setString('image', image!.path);
     } else
       return;
   }
