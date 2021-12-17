@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'package:dream/screen/account/account_model.dart';
+import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/help/help_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TimeLineScreen extends StatefulWidget {
@@ -13,10 +17,18 @@ class TimeLineScreen extends StatefulWidget {
 }
 
 class _TimeLineScreenState extends State<TimeLineScreen> {
+  final account = Account();
+
   final DateTime _dateNow = DateTime.now();
   final _controller = PageController(
     initialPage: 0,
   );
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<AccountProvider>(context, listen: false).getAccountInfo();
+  }
 
   @override
   void dispose() {
@@ -107,40 +119,72 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   }
 
   Widget timeLineView({required BuildContext context}) {
+    final value = context.watch<AccountProvider>();
     final size = MediaQuery.of(context).size;
-    return Column(children: [
-      SizedBox(
-        height: size.height * 0.01,
-      ),
-      const Text(
-        '100 Year',
-        style: TextStyle(fontSize: 24),
-      ),
-      TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0, end: 28.86),
-          duration: Duration(milliseconds: 700),
-          builder: (BuildContext context, double value, child) {
-            return Text(
-              "${value.toStringAsFixed(2)} Point",
-              style: TextStyle(color: Colors.blue, fontSize: 36),
-            );
-          }),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-        child: CircularPercentIndicator(
-          lineWidth: 10,
-          radius: size.width * 0.8,
-          percent: 0.7,
-          center: Icon(
-            Icons.person_pin,
-            size: 50.0,
-            color: Colors.blue,
-          ),
-          progressColor: Colors.green,
-          animation: true,
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(children: [
+        SizedBox(
+          height: size.height * 0.01,
         ),
-      )
-    ]);
+        Text(
+          '${value.account?.year ?? '0'} Year',
+          style: TextStyle(fontSize: 24),
+        ),
+        TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 28.86),
+            duration: Duration(milliseconds: 700),
+            builder: (BuildContext context, double value, child) {
+              return Text(
+                "${value.toStringAsFixed(2)} Point",
+                style: TextStyle(color: Colors.blue, fontSize: 36),
+              );
+            }),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+          child: CircularPercentIndicator(
+            lineWidth: 10,
+            radius: size.width * 0.8,
+            percent: 0.7,
+            center: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Text(
+                    context.watch<AccountProvider>().account?.name ?? '',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: checkPathImage(value.account?.avataAccount)
+                      ? ClipOval(
+                          child: Image.file(
+                            File(value.account!.avataAccount!),
+                            fit: BoxFit.cover,
+                            height: size.width / 3,
+                            width: size.width / 3,
+                          ),
+                        )
+                      : Icon(
+                          Icons.account_circle_outlined,
+                          size: 100,
+                          color: Colors.blue,
+                        ),
+                )
+              ],
+            ),
+            progressColor: Colors.green,
+            animation: true,
+          ),
+        )
+      ]),
+    );
+  }
+
+  bool checkPathImage(String? path) {
+    return (path ?? '').isNotEmpty;
   }
 
   Widget timeLineAddView({required BuildContext context}) {
