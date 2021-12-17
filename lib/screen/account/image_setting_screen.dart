@@ -107,9 +107,8 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
         maxHeight: 1080,
         aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
     if (croppedImage != null) {
-      setState(() {
-        image = croppedImage;
-      });
+      image = croppedImage;
+      setState(() {});
       await preferences.setString('image', image!.path);
     } else
       return;

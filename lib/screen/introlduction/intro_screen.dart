@@ -1,7 +1,7 @@
 import 'package:dream/app_other/app_string.dart';
-import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/introlduction/introl_provider.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
+import 'package:dream/screen/welcom/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -156,7 +156,7 @@ class IntroScreen extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      CreateAccount()),
+                                                      WelcomeScreen()),
                                               (route) => false);
                                       },
                                       child: Text("Go Home")),

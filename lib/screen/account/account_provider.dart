@@ -4,7 +4,6 @@ import 'package:dream/screen/account/account_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// const
 const NAME_KEY = 'name';
 const BIRTHDAY_KEY = 'birthDay';
 const YEAR = 'year';
@@ -19,7 +18,6 @@ class AccountProvider extends ChangeNotifier {
 
   File? get image => _image;
 
-  //account
   Account? _account;
   Account? get account => _account;
 
@@ -46,7 +44,6 @@ class AccountProvider extends ChangeNotifier {
       avataAccount: imageAvata,
     );
     _account = newacc;
-    print('NEW ACC: ${newacc.toString()}');
     notifyListeners();
   }
 }

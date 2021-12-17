@@ -128,7 +128,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
           height: size.height * 0.01,
         ),
         Text(
-          '${value.account?.year ?? '100'} Year',
+          '${value.account?.year ?? '0'} Year',
           style: TextStyle(fontSize: 24),
         ),
         TweenAnimationBuilder<double>(

@@ -42,14 +42,14 @@ class _CreateAccountState extends State<CreateAccount> {
         elevation: 5,
         backgroundColor: Colors.blue,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Create New Account",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
               onPressed: () => checkDone(),
-              child: Text(
+              child: const Text(
                 "Done",
                 style: TextStyle(color: Colors.white),
               ))
@@ -78,7 +78,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     ImageSettingScreen(),
                     Expanded(
                         child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -89,14 +89,6 @@ class _CreateAccountState extends State<CreateAccount> {
                               textCapitalization: TextCapitalization.sentences,
                               controller: _nameController,
                               decoration: InputDecoration(hintText: "Name"),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return;
-                                }
-                              },
-                              onSaved: (value) {
-                                _nameController.text = value!;
-                              },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
@@ -112,7 +104,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Birthday"),
+                                    const Text("Birthday"),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 15),
                                       child: Consumer<AccountProvider>(
@@ -142,16 +134,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               controller: _lifeSpanController,
                               decoration: InputDecoration(
                                   hintText: "Life",
-                                  suffix: Text(" Year"),
+                                  suffix: const Text(" Year"),
                                   border: InputBorder.none),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return;
-                                }
-                              },
-                              onSaved: (value) {
-                                _lifeSpanController.text = value!;
-                              },
                             ),
                           ],
                         ),
@@ -212,10 +196,21 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void checkDone() {
     if (_nameController.text.isEmpty || _lifeSpanController.text.isEmpty) {
+      checkPathImage(null);
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                title: Text("Please"),
+                title:
+                    Center(child: const Text("Please enter all information !")),
+                actions: [
+                  Container(
+                      alignment: Alignment.center,
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.redAccent,
+                        size: 30,
+                      )),
+                ],
               ));
     } else {
       saveAccount();
@@ -224,9 +219,9 @@ class _CreateAccountState extends State<CreateAccount> {
     }
   }
 
-  bool checkImage(String? path) {
-    if (path != null && path.isNotEmpty) return true;
-    return false;
+  void checkPathImage(String? path) {
+    path ?? "";
+    print(path);
   }
 }
 
