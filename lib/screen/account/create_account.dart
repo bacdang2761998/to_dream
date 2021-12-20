@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'account_model.dart';
 
 class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
@@ -56,7 +57,7 @@ class _CreateAccountState extends State<CreateAccount> {
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/background.png"),
                 fit: BoxFit.cover)),
@@ -75,11 +76,11 @@ class _CreateAccountState extends State<CreateAccount> {
                 key: _formKey,
                 child: Row(
                   children: [
-                    ImageSettingScreen(),
+                    const ImageSettingScreen(),
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
+                      child: SizedBox(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,14 +89,15 @@ class _CreateAccountState extends State<CreateAccount> {
                               textDirection: TextDirection.ltr,
                               textCapitalization: TextCapitalization.sentences,
                               controller: _nameController,
-                              decoration: InputDecoration(hintText: "Name"),
+                              decoration:
+                                  const InputDecoration(hintText: "Name"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Container(
                                 alignment: Alignment.topRight,
                                 height: 28,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     border: Border(
                                   bottom:
                                       BorderSide(width: 1, color: Colors.grey),
@@ -116,7 +118,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                           },
                                           child: Text(
                                             "${model.date.day} / ${model.date.month} / ${model.date.year}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),
                                           ),
@@ -132,9 +134,9 @@ class _CreateAccountState extends State<CreateAccount> {
                               textDirection: TextDirection.rtl,
                               keyboardType: TextInputType.number,
                               controller: _lifeSpanController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: "Life",
-                                  suffix: const Text(" Year"),
+                                  suffix: Text(" Year"),
                                   border: InputBorder.none),
                             ),
                           ],
@@ -169,9 +171,9 @@ class _CreateAccountState extends State<CreateAccount> {
                           borderRadius: BorderRadius.circular(10)),
                       width: double.infinity,
                       height: size.height * 1 / 3,
-                      child: Center(
+                      child: const Center(
                         child: Text(
-                          AppString.CONTENT2,
+                          AppString.contentIntrol2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 24, color: Colors.deepOrangeAccent),
@@ -191,7 +193,7 @@ class _CreateAccountState extends State<CreateAccount> {
   void saveAccount() async {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString(nameKey, _nameController.text);
-    await preferences.setString(Year, _lifeSpanController.text);
+    await preferences.setString(yearKey, _lifeSpanController.text);
   }
 
   void checkDone() {
@@ -200,11 +202,11 @@ class _CreateAccountState extends State<CreateAccount> {
           context: context,
           builder: (_) => AlertDialog(
                 title:
-                    Center(child: const Text("Please enter all information !")),
+                    const Center(child: Text("Please enter all information !")),
                 actions: [
                   Container(
                       alignment: Alignment.center,
-                      child: Icon(
+                      child: const Icon(
                         Icons.error,
                         color: Colors.redAccent,
                         size: 30,
@@ -214,7 +216,7 @@ class _CreateAccountState extends State<CreateAccount> {
     } else {
       saveAccount();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BottomBar()));
+          context, MaterialPageRoute(builder: (context) => const BottomBar()));
     }
   }
 }

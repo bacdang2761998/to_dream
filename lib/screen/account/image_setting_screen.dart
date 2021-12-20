@@ -40,8 +40,8 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
             child: Container(
               height: size.width / 3,
               width: size.width / 3,
-              decoration: BoxDecoration(color: Colors.grey),
-              child: Icon(
+              decoration: const BoxDecoration(color: Colors.grey),
+              child: const Icon(
                 Icons.add_photo_alternate_outlined,
                 size: 50,
                 color: Colors.white,
@@ -56,11 +56,11 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
           builder: (context) => CupertinoActionSheet(
                 actions: [
                   CupertinoActionSheetAction(
-                      child: Text(AppString.Camera),
+                      child: const Text(AppString.txtCamera),
                       onPressed: () => pickImage(ImageSource.camera)),
-                  Divider(),
+                  const Divider(),
                   CupertinoActionSheetAction(
-                      child: Text(AppString.Gallery),
+                      child: const Text(AppString.txtGallery),
                       onPressed: () => pickImage(ImageSource.gallery)),
                 ],
               ));
@@ -71,16 +71,16 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text(AppString.Camera),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text(AppString.txtCamera),
                 onTap: () {
                   pickImage(ImageSource.camera);
                   Navigator.of(context).pop();
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.photo),
-              title: Text(AppString.Gallery),
+              leading: const Icon(Icons.photo),
+              title: const Text(AppString.txtGallery),
               onTap: () {
                 pickImage(ImageSource.gallery);
                 Navigator.of(context).pop();
@@ -105,12 +105,13 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
         sourcePath: filePath,
         maxWidth: 1080,
         maxHeight: 1080,
-        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
+        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
     if (croppedImage != null) {
       image = croppedImage;
       setState(() {});
       await preferences.setString('image', image!.path);
-    } else
+    } else {
       return;
+    }
   }
 }

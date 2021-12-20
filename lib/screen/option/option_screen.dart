@@ -1,4 +1,6 @@
+import 'package:dream/screen/option/option_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OptionScreen extends StatefulWidget {
   const OptionScreen({Key? key}) : super(key: key);
@@ -8,16 +10,15 @@ class OptionScreen extends StatefulWidget {
 }
 
 class _OptionScreenState extends State<OptionScreen> {
-  final iconNext = Icon(Icons.navigate_next);
-  final iconShare = Icon(Icons.open_in_new);
-  final switchTitle = Switch(value: false, onChanged: (value) {});
+  final iconNext = const Icon(Icons.navigate_next);
+  final iconShare = const Icon(Icons.open_in_new);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Option",
           style: TextStyle(color: Colors.white),
         ),
@@ -41,13 +42,15 @@ class _OptionScreenState extends State<OptionScreen> {
             _titleBox("3 ToDo", size.height / 10),
             _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
             _listTitle(
-                textTitle: "textTitle", child: switchTitle, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: Text(""), onTap: () {}),
+                textTitle: "textTitle", child: switchTitle(), onTap: () {}),
+            _listTitle(
+                textTitle: "textTitle", child: const Text(""), onTap: () {}),
             _titleBox("3TODO", size.height / 10),
             _listTitle(
-                textTitle: "textTitle", child: switchTitle, onTap: () {}),
+                textTitle: "textTitle", child: switchTitle(), onTap: () {}),
             _titleBox("", size.height / 20),
-            _listTitle(textTitle: "textTitle", child: Text(""), onTap: () {}),
+            _listTitle(
+                textTitle: "textTitle", child: const Text(""), onTap: () {}),
             _listTitleShare("textTitle ")
           ],
         ),
@@ -72,7 +75,7 @@ Widget _listTitle({
         trailing: child,
         onTap: onTap,
       ),
-      Divider()
+      const Divider()
     ],
   );
 }
@@ -86,7 +89,7 @@ Widget _listTitleShare(
         title: Row(
           children: [
             Text(textTitle),
-            Icon(
+            const Icon(
               Icons.open_in_new,
               size: 15,
             )
@@ -94,7 +97,7 @@ Widget _listTitleShare(
         ),
         onTap: () {},
       ),
-      Divider()
+      const Divider()
     ],
   );
 }
@@ -102,7 +105,7 @@ Widget _listTitleShare(
 Widget _titleBox(String tittle, double _height) {
   return Container(
     alignment: Alignment.bottomLeft,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Colors.greenAccent,
     ),
     height: _height,
@@ -110,8 +113,17 @@ Widget _titleBox(String tittle, double _height) {
       padding: const EdgeInsets.only(left: 20),
       child: Text(
         tittle,
-        style: TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 20),
       ),
     ),
   );
+}
+
+Widget switchTitle() {
+  return Consumer<OptionProvider>(
+      builder: (_, model, child) => Switch(
+          value: model.isSwitch,
+          onChanged: (isNewSwitch) {
+            model.setIsSwitch(isNewSwitch);
+          }));
 }

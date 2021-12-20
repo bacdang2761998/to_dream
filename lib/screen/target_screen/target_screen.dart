@@ -26,7 +26,7 @@ class _TargetScreenState extends State<TargetScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Target',
           style: TextStyle(color: Colors.white),
         ),
@@ -36,8 +36,8 @@ class _TargetScreenState extends State<TargetScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HelpScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HelpScreen()));
           },
         ),
       ),
@@ -94,7 +94,7 @@ class _TargetScreenState extends State<TargetScreen> {
                 onPressed: () {},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.add), Text("Add")],
+                  children: const <Widget>[Icon(Icons.add), Text("Add")],
                 )),
           )
         ],
@@ -137,7 +137,7 @@ class TargetDataSource extends DataGridSource {
         cells: row.getCells().map<Widget>((e) {
       return Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Text(e.value.toString()),
       );
     }).toList());

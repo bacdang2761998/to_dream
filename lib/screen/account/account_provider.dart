@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const nameKey = 'name';
 const birthKey = 'birthDay';
-const Year = 'year';
+const yearKey = 'year';
 const imagKey = 'image';
 
 class AccountProvider extends ChangeNotifier {
@@ -35,7 +35,7 @@ class AccountProvider extends ChangeNotifier {
     final preferences = await SharedPreferences.getInstance();
     final name = preferences.getString(nameKey);
     final birthDay = preferences.getString(birthKey);
-    final year = preferences.getString(Year);
+    final year = preferences.getString(yearKey);
     final imageAvata = preferences.getString(imagKey);
     final newacc = Account(
       name: name,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -18,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Colors.amber[50],
         body: Center(
           child: AlertDialog(
-            title: Text("Do you want to create a new account ?"),
+            title: const Text("Do you want to create a new account ?"),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,18 +28,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         clearData();
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (_) => CreateAccount()),
+                            MaterialPageRoute(
+                                builder: (_) => const CreateAccount()),
                             (route) => false);
                       },
-                      child: Text(" Yes")),
+                      child: const Text(" Yes")),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (_) => BottomBar()),
+                            MaterialPageRoute(
+                                builder: (_) => const BottomBar()),
                             (route) => false);
                       },
-                      child: Text(" No")),
+                      child: const Text(" No")),
                 ],
               )
             ],

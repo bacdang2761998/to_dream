@@ -23,7 +23,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Target Table',
             style: TextStyle(color: Colors.white),
           ),
@@ -34,7 +34,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
             ),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HelpScreen()));
+                  MaterialPageRoute(builder: (context) => const HelpScreen()));
             },
           )),
       body: SingleChildScrollView(
@@ -97,7 +97,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               height: size.height / 14,
               width: size.width / 2,
               child: Text("${index + 2000} Year"),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white, border: Border(right: BorderSide())),
             ),
           ),
@@ -173,8 +173,8 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     Container(
                       alignment: Alignment.centerLeft,
                       width: size.width / 2,
-                      decoration:
-                          BoxDecoration(border: Border(right: BorderSide())),
+                      decoration: const BoxDecoration(
+                          border: Border(right: BorderSide())),
                       child: Consumer<TargetTableProvider>(
                         builder: (context, model, child) => Checkbox(
                           onChanged: (isNewCheckedTarget) {
@@ -191,11 +191,11 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
   _showModelBottomSheet(BuildContext context, int index) {
     Size size = MediaQuery.of(context).size;
     return showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))),
         isScrollControlled: true,
         context: context,
-        builder: (context) => Container(
+        builder: (context) => SizedBox(
               height: size.height * 0.9,
               child: Center(
                 child: Column(
@@ -205,7 +205,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                         height: size.height / 10,
                         decoration: BoxDecoration(
                             color: model.targetTables[index].color,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20),
                             )),
@@ -223,7 +223,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(Icons.cancel))
+                                icon: const Icon(Icons.cancel))
                           ],
                         ),
                       ),
