@@ -190,8 +190,8 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void saveAccount() async {
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(NAME_KEY, _nameController.text);
-    await preferences.setString(YEAR, _lifeSpanController.text);
+    await preferences.setString(nameKey, _nameController.text);
+    await preferences.setString(Year, _lifeSpanController.text);
   }
 
   void checkDone() {
