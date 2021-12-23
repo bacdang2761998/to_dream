@@ -1,9 +1,12 @@
 import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/introlduction/intro_screen.dart';
 import 'package:dream/screen/introlduction/introl_provider.dart';
+import 'package:dream/screen/introlduction/introl_state.dart';
+import 'package:dream/screen/introlduction/introl_state_notifier.dart';
 import 'package:dream/screen/target_table/target_table_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,6 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        StateNotifierProvider<IntrolStateNotifier, IntrolState>(
+            create: (_) => IntrolStateNotifier()),
         ChangeNotifierProvider(create: (_) => IntroProvider()),
         ChangeNotifierProvider(create: (_) => AccountProvider()),
         ChangeNotifierProvider(create: (_) => TargetTableProvider()),

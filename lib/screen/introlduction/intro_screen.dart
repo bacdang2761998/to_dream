@@ -1,5 +1,6 @@
 import 'package:dream/app_other/app_string.dart';
-import 'package:dream/screen/introlduction/introl_provider.dart';
+import 'package:dream/screen/introlduction/introl_state.dart';
+import 'package:dream/screen/introlduction/introl_state_notifier.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
 import 'package:dream/screen/welcom/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,14 +58,15 @@ class IntroScreen extends StatelessWidget {
     );
   }
 
-  Widget checkBox() {
-    return Consumer<IntroProvider>(
+  Widget checkBox(BuildContext context) {
+    final value = context.watch<IntrolState>();
+    return Consumer<IntrolStateNotifier>(
       builder: (context, model, child) => Checkbox(
         checkColor: Colors.white,
         onChanged: (isNewChecked) {
-          model.setIsChecked(isNewChecked!);
+          model.setChecked(isNewChecked!);
         },
-        value: model.isChecked,
+        value: value.isChecked,
       ),
     );
   }
@@ -78,7 +80,7 @@ class IntroScreen extends StatelessWidget {
   }
 
   Widget myPage3({required BuildContext context}) {
-    bool value = context.watch<IntroProvider>().isAbsorb;
+    final value = context.watch<IntrolState>();
     return Provider.value(
       value: value,
       child: Container(
@@ -103,7 +105,8 @@ class IntroScreen extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               decoration: TextDecoration.underline)),
                       onTap: () {
-                        context.read<IntroProvider>().setIsAbsorb();
+                        context.read<IntrolStateNotifier>().setAbsorb();
+                        print(!value.isAbsorb);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -120,16 +123,16 @@ class IntroScreen extends StatelessWidget {
               ),
               Flexible(
                 child: AbsorbPointer(
-                  absorbing: value,
+                  absorbing: !value.isAbsorb,
                   child: Opacity(
-                    opacity: value ? 0.5 : 1,
+                    opacity: !value.isAbsorb ? 0.5 : 1,
                     child: Column(
                       children: [
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              checkBox(),
+                              checkBox(context),
                               Text(
                                 AppString.ACCEPT,
                                 style: TextStyle(color: Colors.white),
@@ -140,29 +143,25 @@ class IntroScreen extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 25),
-                            child: Consumer<IntroProvider>(
-                              builder: (BuildContext context, model, child) =>
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.lightBlue,
-                                        onPrimary: Colors.white,
-                                        fixedSize: Size(
-                                            MediaQuery.of(context).size.width,
-                                            20),
-                                      ),
-                                      onPressed: () {
-                                        if (model.isChecked)
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      WelcomeScreen()),
-                                              (route) => false);
-                                      },
-                                      child: Text("Go Home")),
-                            ),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.lightBlue,
+                                  onPrimary: Colors.white,
+                                  fixedSize: Size(
+                                      MediaQuery.of(context).size.width, 20),
+                                ),
+                                onPressed: () {
+                                  if (value.isChecked == true)
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                WelcomeScreen()),
+                                        (route) => false);
+                                },
+                                child: Text("Go Home")),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
