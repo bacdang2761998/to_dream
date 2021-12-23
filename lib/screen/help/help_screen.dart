@@ -14,7 +14,7 @@ class _HelpScreenState extends State<HelpScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final _controller = PageController(
       initialPage: 0,
     );
@@ -34,7 +34,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ))
           ],
           title: const Text(
-            "Support",
+            'Support',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -105,11 +105,11 @@ class _HelpScreenState extends State<HelpScreen> {
 
   Widget imagePage() {
     if (selectedIndex == 0) {
-      return Image.asset("assets/images/help.png");
+      return Image.asset('assets/images/help.png');
     } else if (selectedIndex == 1) {
-      return Image.asset("assets/images/background.png");
+      return Image.asset('assets/images/background.png');
     } else {
-      return Image.asset("assets/images/splash.png");
+      return Image.asset('assets/images/splash.png');
     }
   }
 }

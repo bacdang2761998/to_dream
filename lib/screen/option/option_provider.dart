@@ -4,7 +4,7 @@ class OptionProvider extends ChangeNotifier {
   bool _isSwitch = false;
 
   bool get isSwitch => _isSwitch;
-  void setIsSwitch(bool isNewSwitch) {
+  void setIsSwitch({required bool isNewSwitch}) {
     _isSwitch = isNewSwitch;
     notifyListeners();
   }

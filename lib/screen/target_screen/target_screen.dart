@@ -22,7 +22,7 @@ class _TargetScreenState extends State<TargetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,7 +36,7 @@ class _TargetScreenState extends State<TargetScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(context,
+            Navigator.push<Widget>(context,
                 MaterialPageRoute(builder: (context) => const HelpScreen()));
           },
         ),
@@ -52,7 +52,7 @@ class _TargetScreenState extends State<TargetScreen> {
               GridColumn(
                   columnName: 'id',
                   label: Container(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16),
                       alignment: Alignment.center,
                       child: const Text(
                         'ID',
@@ -60,13 +60,13 @@ class _TargetScreenState extends State<TargetScreen> {
               GridColumn(
                   columnName: 'endDate',
                   label: Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       alignment: Alignment.center,
                       child: const Text('End Date'))),
               GridColumn(
                   columnName: 'designation',
                   label: Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       alignment: Alignment.center,
                       child: const Text(
                         'Designation',
@@ -75,7 +75,7 @@ class _TargetScreenState extends State<TargetScreen> {
               GridColumn(
                   columnName: 'priority',
                   label: Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       alignment: Alignment.center,
                       child: const Text('Priority Level'))),
             ],
@@ -94,7 +94,7 @@ class _TargetScreenState extends State<TargetScreen> {
                 onPressed: () {},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[Icon(Icons.add), Text("Add")],
+                  children: const <Widget>[Icon(Icons.add), Text('Add')],
                 )),
           )
         ],
@@ -108,11 +108,11 @@ List<Target> getDataTarget() {
 }
 
 class Target {
+  Target(this.id, this.name, this.designation, this.salary);
   final int id;
   final String name;
   final String designation;
   final int salary;
-  Target(this.id, this.name, this.designation, this.salary);
 }
 
 class TargetDataSource extends DataGridSource {
@@ -137,7 +137,7 @@ class TargetDataSource extends DataGridSource {
         cells: row.getCells().map<Widget>((e) {
       return Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Text(e.value.toString()),
       );
     }).toList());

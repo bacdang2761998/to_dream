@@ -18,7 +18,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +33,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
+              Navigator.push<Widget>(context,
                   MaterialPageRoute(builder: (context) => const HelpScreen()));
             },
           )),
@@ -70,21 +70,21 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
   }
 
   Widget _iconColumn(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Consumer<TargetTableProvider>(
         builder: (context, model, child) => Container(
               height: size.height / 7,
               width: size.width / 8,
-              child: model.targetTables[index].icon,
               decoration: BoxDecoration(
                 color: model.targetTables[index].color,
                 border: Border.all(color: model.targetTables[index].color),
               ),
+              child: model.targetTables[index].icon,
             ));
   }
 
   DataTable _buildDataTable(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return DataTable(
         showCheckboxColumn: false,
         dataRowHeight: size.height / 28,
@@ -96,9 +96,9 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               alignment: Alignment.center,
               height: size.height / 14,
               width: size.width / 2,
-              child: Text("${index + 2000} Year"),
               decoration: const BoxDecoration(
                   color: Colors.white, border: Border(right: BorderSide())),
+              child: Text('${index + 2000} Year'),
             ),
           ),
         ),
@@ -107,7 +107,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
             (index) => DataRow(
                 color: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                  return index % 2 == 0
+                  return index.isEven
                       ? Colors.greenAccent.withOpacity(0.8)
                       : Colors.greenAccent.withOpacity(0.5);
                 }),
@@ -178,7 +178,8 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                       child: Consumer<TargetTableProvider>(
                         builder: (context, model, child) => Checkbox(
                           onChanged: (isNewCheckedTarget) {
-                            model.setCheckedTable(isNewCheckedTarget!);
+                            model.setCheckedTable(
+                                isNewCheckedTarget: isNewCheckedTarget!);
                           },
                           value: model.isCheckedTarget,
                         ),
@@ -188,11 +189,11 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                 ))));
   }
 
-  _showModelBottomSheet(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
+  Future<void> _showModelBottomSheet(BuildContext context, int index) {
+    final size = MediaQuery.of(context).size;
     return showModalBottomSheet(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         isScrollControlled: true,
         context: context,
         builder: (context) => SizedBox(

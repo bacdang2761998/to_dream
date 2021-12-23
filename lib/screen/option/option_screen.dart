@@ -15,11 +15,11 @@ class _OptionScreenState extends State<OptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Option",
+          'Option',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -29,29 +29,64 @@ class _OptionScreenState extends State<OptionScreen> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            _titleBox("1 ToDO", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _titleBox("2 ToDo", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _titleBox("3 ToDo", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
+            _titleBox('1 ToDO', size.height / 10),
             _listTitle(
-                textTitle: "textTitle", child: switchTitle(), onTap: () {}),
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
             _listTitle(
-                textTitle: "textTitle", child: const Text(""), onTap: () {}),
-            _titleBox("3TODO", size.height / 10),
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
             _listTitle(
-                textTitle: "textTitle", child: switchTitle(), onTap: () {}),
-            _titleBox("", size.height / 20),
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
             _listTitle(
-                textTitle: "textTitle", child: const Text(""), onTap: () {}),
-            _listTitleShare("textTitle ")
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
+            _titleBox('2 ToDo', size.height / 10),
+            _listTitle(
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
+            _listTitle(
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
+            _listTitle(
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
+            _listTitle(onTap: () {}, textTitle: 'textTitle', child: iconNext),
+            _titleBox('3 ToDo', size.height / 10),
+            _listTitle(
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: iconNext,
+            ),
+            _listTitle(
+              onTap: () {},
+              textTitle: 'textTitle',
+              child: switchTitle(),
+            ),
+            _listTitle(
+                textTitle: 'textTitle', child: const Text(''), onTap: () {}),
+            _titleBox('3TODO', size.height / 10),
+            _listTitle(
+                textTitle: 'textTitle', child: switchTitle(), onTap: () {}),
+            _titleBox('', size.height / 20),
+            _listTitle(
+                textTitle: 'textTitle', child: const Text(''), onTap: () {}),
+            _listTitleShare('textTitle')
           ],
         ),
       ),
@@ -124,6 +159,6 @@ Widget switchTitle() {
       builder: (_, model, child) => Switch(
           value: model.isSwitch,
           onChanged: (isNewSwitch) {
-            model.setIsSwitch(isNewSwitch);
+            model.setIsSwitch(isNewSwitch: isNewSwitch);
           }));
 }

@@ -19,7 +19,7 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
   final account = Account();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return image != null
         ? GestureDetector(
@@ -56,12 +56,14 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
           builder: (context) => CupertinoActionSheet(
                 actions: [
                   CupertinoActionSheetAction(
-                      child: const Text(AppString.txtCamera),
-                      onPressed: () => pickImage(ImageSource.camera)),
+                    onPressed: () => pickImage(ImageSource.camera),
+                    child: const Text(AppString.txtCamera),
+                  ),
                   const Divider(),
                   CupertinoActionSheetAction(
-                      child: const Text(AppString.txtGallery),
-                      onPressed: () => pickImage(ImageSource.gallery)),
+                    onPressed: () => pickImage(ImageSource.gallery),
+                    child: const Text(AppString.txtGallery),
+                  ),
                 ],
               ));
     } else {
@@ -93,19 +95,21 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
   }
 
   Future<void> pickImage(ImageSource source) async {
-    XFile? imagePicker = await ImagePicker().pickImage(source: source);
-    if (imagePicker == null) return;
-    _cropImage(imagePicker.path);
+    final imagePicker = await ImagePicker().pickImage(source: source);
+    if (imagePicker == null) {
+      return;
+    }
+    await _cropImage(imagePicker.path);
   }
 
-  Future<void> _cropImage(filePath) async {
+  Future<void> _cropImage(String filePath) async {
     final preferences = await SharedPreferences.getInstance();
 
-    File? croppedImage = await ImageCropper.cropImage(
+    final croppedImage = await ImageCropper.cropImage(
         sourcePath: filePath,
         maxWidth: 1080,
         maxHeight: 1080,
-        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0));
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1));
     if (croppedImage != null) {
       image = croppedImage;
       setState(() {});

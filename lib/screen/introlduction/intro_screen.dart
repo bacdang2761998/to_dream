@@ -64,7 +64,7 @@ class IntroScreen extends StatelessWidget {
       builder: (context, model, child) => Checkbox(
         checkColor: Colors.white,
         onChanged: (isNewChecked) {
-          model.setIsChecked(isNewChecked!);
+          model.setIsChecked(isNewChecked: isNewChecked!);
         },
         value: model.isChecked,
       ),
@@ -80,7 +80,7 @@ class IntroScreen extends StatelessWidget {
   }
 
   Widget myPage3({required BuildContext context}) {
-    bool value = context.watch<IntroProvider>().isAbsorb;
+    final value = context.watch<IntroProvider>().isAbsorb;
     return Provider.value(
       value: value,
       child: Container(
@@ -99,18 +99,18 @@ class IntroScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: const Text(" Terms of service ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontStyle: FontStyle.italic,
-                              decoration: TextDecoration.underline)),
                       onTap: () {
                         context.read<IntroProvider>().setIsAbsorb();
-                        Navigator.push(
+                        Navigator.push<Widget>(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const WebViewAccep()));
                       },
+                      child: const Text('Terms of service',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              decoration: TextDecoration.underline)),
                     ),
                     const Icon(
                       Icons.open_in_new,
@@ -154,7 +154,7 @@ class IntroScreen extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         if (model.isChecked) {
-                                          Navigator.pushAndRemoveUntil(
+                                          Navigator.pushAndRemoveUntil<Widget>(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -162,7 +162,7 @@ class IntroScreen extends StatelessWidget {
                                               (route) => false);
                                         }
                                       },
-                                      child: const Text("Go Home")),
+                                      child: const Text('Go Home')),
                             ),
                           ),
                         )

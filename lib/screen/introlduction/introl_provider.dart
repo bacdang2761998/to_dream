@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'dart:core';
 
 class IntroProvider extends ChangeNotifier {
   bool _isChecked = false;
@@ -7,7 +6,7 @@ class IntroProvider extends ChangeNotifier {
 
   bool get isChecked => _isChecked;
   bool get isAbsorb => _isAbsorb;
-  void setIsChecked(bool isNewChecked) {
+  void setIsChecked({required bool isNewChecked}) {
     _isChecked = isNewChecked;
     notifyListeners();
   }

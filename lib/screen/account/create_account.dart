@@ -36,7 +36,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -44,14 +44,14 @@ class _CreateAccountState extends State<CreateAccount> {
         backgroundColor: Colors.blue,
         centerTitle: true,
         title: const Text(
-          "Create New Account",
+          'Create New Account',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
-              onPressed: () => checkDone(),
+              onPressed: () => {checkDone()},
               child: const Text(
-                "Done",
+                'Done',
                 style: TextStyle(color: Colors.white),
               ))
         ],
@@ -59,7 +59,7 @@ class _CreateAccountState extends State<CreateAccount> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: Column(
           children: [
@@ -90,7 +90,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               textCapitalization: TextCapitalization.sentences,
                               controller: _nameController,
                               decoration:
-                                  const InputDecoration(hintText: "Name"),
+                                  const InputDecoration(hintText: 'Name'),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
@@ -106,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text("Birthday"),
+                                    const Text('Birthday'),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 15),
                                       child: Consumer<AccountProvider>(
@@ -117,7 +117,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                             showDatePicker(context);
                                           },
                                           child: Text(
-                                            "${model.date.day} / ${model.date.month} / ${model.date.year}",
+                                            '${model.date.day} / ${model.date.month} / ${model.date.year}',
                                             style: const TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),
@@ -135,8 +135,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               keyboardType: TextInputType.number,
                               controller: _lifeSpanController,
                               decoration: const InputDecoration(
-                                  hintText: "Life",
-                                  suffix: Text(" Year"),
+                                  hintText: 'Life',
+                                  suffix: Text('Year'),
                                   border: InputBorder.none),
                             ),
                           ],
@@ -190,7 +190,7 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
-  void saveAccount() async {
+  Future<void> saveAccount() async {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString(nameKey, _nameController.text);
     await preferences.setString(yearKey, _lifeSpanController.text);
@@ -198,11 +198,11 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void checkDone() {
     if (_nameController.text.isEmpty || _lifeSpanController.text.isEmpty) {
-      showDialog(
+      showDialog<Widget>(
           context: context,
           builder: (_) => AlertDialog(
                 title:
-                    const Center(child: Text("Please enter all information !")),
+                    const Center(child: Text('Please enter all information !')),
                 actions: [
                   Container(
                       alignment: Alignment.center,
@@ -215,7 +215,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ));
     } else {
       saveAccount();
-      Navigator.push(
+      Navigator.push<void>(
           context, MaterialPageRoute(builder: (context) => const BottomBar()));
     }
   }
@@ -224,11 +224,11 @@ class _CreateAccountState extends State<CreateAccount> {
 class TriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(0, size.height);
-    path.lineTo(size.height, size.width);
-    path.close();
+    final path = Path()
+      ..moveTo(size.width / 2, 0)
+      ..lineTo(0, size.height)
+      ..lineTo(size.height, size.width)
+      ..close();
     return path;
   }
 
@@ -237,7 +237,7 @@ class TriangleClipper extends CustomClipper<Path> {
 }
 
 void showDatePicker(BuildContext context) {
-  showCupertinoModalPopup(
+  showCupertinoModalPopup<Widget>(
       context: context,
       builder: (BuildContext builder) {
         return Container(
@@ -248,7 +248,9 @@ void showDatePicker(BuildContext context) {
                 CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (isNewDate) {
-                if (isNewDate != model.date) model.setDate(isNewDate);
+                if (isNewDate != model.date) {
+                  model.setDate(isNewDate);
+                }
               },
               initialDateTime: model.date,
               maximumYear: DateTime.now().year,

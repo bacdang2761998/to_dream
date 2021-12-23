@@ -34,7 +34,7 @@ class TargetTableProvider with ChangeNotifier {
 
   List<TargetModel> get targetTables => _tagetTables;
 
-  void setCheckedTable(bool isNewCheckedTarget) {
+  void setCheckedTable({required bool isNewCheckedTarget}) {
     isCheckedTarget = isNewCheckedTarget;
     notifyListeners();
   }

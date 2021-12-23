@@ -31,21 +31,19 @@ class _BottomBarState extends State<BottomBar> {
           unselectedItemColor: Colors.grey,
           items: [
             const BottomNavigationBarItem(
-                icon: Icon(Icons.lock_clock), label: "Time Line"),
+                icon: Icon(Icons.lock_clock), label: 'Time Line'),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.chat), label: "Target"),
+                icon: Icon(Icons.chat), label: 'Target'),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.picture_in_picture), label: "Smart"),
+                icon: Icon(Icons.picture_in_picture), label: 'Smart'),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.group), label: "Target Table"),
+                icon: Icon(Icons.group), label: 'Target Table'),
             BottomNavigationBarItem(
                 icon: const Icon(Icons.menu),
                 backgroundColor: selectedIndex == 4 ? Colors.blue : Colors.grey,
-                label: "Option"),
+                label: 'Option'),
           ],
-          onTap: (int index) {
-            onTabHandler(index);
-          },
+          onTap: onTabHandler,
         ),
       ),
     );

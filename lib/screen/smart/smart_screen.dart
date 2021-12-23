@@ -13,8 +13,8 @@ class _SmartScreenState extends State<SmartScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Smart"),
+          title: const Text('Smart'),
         ),
-        body: const Text("Smart Screen"));
+        body: const Text('Smart Screen'));
   }
 }

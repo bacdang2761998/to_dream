@@ -21,7 +21,7 @@ class AccountProvider extends ChangeNotifier {
   Account? _account;
   Account? get account => _account;
 
-  Future setImage(File? imagePicker) async {
+  Future<void> setImage(File? imagePicker) async {
     _image = imagePicker;
     notifyListeners();
   }

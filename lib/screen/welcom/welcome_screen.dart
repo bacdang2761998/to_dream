@@ -18,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Colors.amber[50],
         body: Center(
           child: AlertDialog(
-            title: const Text("Do you want to create a new account ?"),
+            title: const Text('Do you want to create a new account ?'),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -26,22 +26,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ElevatedButton(
                       onPressed: () {
                         clearData();
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushAndRemoveUntil<Widget>(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const CreateAccount()),
                             (route) => false);
                       },
-                      child: const Text(" Yes")),
+                      child: const Text('Yes')),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushAndRemoveUntil<Widget>(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const BottomBar()),
                             (route) => false);
                       },
-                      child: const Text(" No")),
+                      child: const Text(' No')),
                 ],
               )
             ],
@@ -49,8 +49,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ));
   }
 
-  void clearData() async {
+  Future<void> clearData() async {
     final preferences = await SharedPreferences.getInstance();
-    preferences.clear();
+    await preferences.clear();
   }
 }

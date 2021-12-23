@@ -51,14 +51,14 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
+              Navigator.push<Widget>(context,
                   MaterialPageRoute(builder: (context) => const HelpScreen()));
             },
           ),
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.push<Widget>(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const CreateAccount()));
@@ -79,7 +79,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
               decoration:
                   const BoxDecoration(border: Border(bottom: BorderSide())),
               child: Text(
-                "${_dateNow.year} Year ${_dateNow.month} Month ${_dateNow.day} Day ",
+                '${_dateNow.year} Year ${_dateNow.month} Month ${_dateNow.day} Day',
                 style: const TextStyle(fontSize: 18),
               ),
             ),
@@ -139,7 +139,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
             duration: const Duration(milliseconds: 700),
             builder: (BuildContext context, double value, child) {
               return Text(
-                "${value.toStringAsFixed(2)} Point",
+                '${value.toStringAsFixed(2)} Point',
                 style: const TextStyle(color: Colors.blue, fontSize: 36),
               );
             }),
@@ -191,7 +191,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   }
 
   Widget timeLineAddView({required BuildContext context}) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
         SizedBox(
@@ -201,9 +201,9 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            const Text("0 Year", style: TextStyle(fontSize: 24)),
+            const Text('0 Year', style: TextStyle(fontSize: 24)),
             const Text(
-              "0 Point",
+              '0 Point',
               style: TextStyle(color: Colors.blue, fontSize: 36),
             ),
             Padding(
@@ -211,7 +211,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
               child: CircularPercentIndicator(
                 lineWidth: 10,
                 radius: size.width * 0.7,
-                percent: 1.0,
+                percent: 1,
                 center: Container(
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle,
@@ -249,8 +249,10 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
                 color: Colors.white,
                 size: 100,
               ),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const CreateAccount())),
+              onPressed: () {
+                Navigator.of(context).push<Widget>(MaterialPageRoute(
+                    builder: (context) => const CreateAccount()));
+              },
             ),
           ),
         ),
