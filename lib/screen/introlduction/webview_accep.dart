@@ -13,19 +13,19 @@ class WebViewAccep extends StatelessWidget {
         backgroundColor: Colors.blue,
         elevation: 4,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
-          AppUrl.UrlAccep,
+        title: const Text(
+          AppUrl.urlAccep,
           style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.share))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share))],
       ),
-      body: WebView(
-        initialUrl: AppUrl.UrlAccep,
+      body: const WebView(
+        initialUrl: AppUrl.urlAccep,
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

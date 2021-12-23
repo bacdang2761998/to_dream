@@ -1,3 +1,3 @@
-class AppUrl{
-  static const String UrlAccep ="https://www.success.com/";
+class AppUrl {
+  static const String urlAccep = 'https://www.success.com/';
 }

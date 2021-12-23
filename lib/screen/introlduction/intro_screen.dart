@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroScreen extends StatelessWidget {
+  IntroScreen({Key? key}) : super(key: key);
+
   final _controller = PageController(
     initialPage: 0,
   );
@@ -25,8 +27,8 @@ class IntroScreen extends StatelessWidget {
               controller: _controller,
               scrollDirection: Axis.horizontal,
               children: [
-                myPage(content: AppString.CONTENT1),
-                myPage(content: AppString.CONTENT3),
+                myPage(content: AppString.contentIntrol1),
+                myPage(content: AppString.contentIntrol3),
                 myPage3(context: context)
               ],
             ),
@@ -37,12 +39,12 @@ class IntroScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Center(
                 child: SmoothPageIndicator(
                   controller: _controller,
                   count: 3,
-                  effect: WormEffect(
+                  effect: const WormEffect(
                       activeDotColor: Colors.blueAccent,
                       dotColor: Colors.white38,
                       dotHeight: 8,
@@ -62,7 +64,7 @@ class IntroScreen extends StatelessWidget {
       builder: (context, model, child) => Checkbox(
         checkColor: Colors.white,
         onChanged: (isNewChecked) {
-          model.setIsChecked(isNewChecked!);
+          model.setIsChecked(isNewChecked: isNewChecked!);
         },
         value: model.isChecked,
       ),
@@ -74,21 +76,21 @@ class IntroScreen extends StatelessWidget {
         color: Colors.lightBlue,
         child: Text(content,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 28, color: Colors.white)));
+            style: const TextStyle(fontSize: 28, color: Colors.white)));
   }
 
   Widget myPage3({required BuildContext context}) {
-    bool value = context.watch<IntroProvider>().isAbsorb;
+    final value = context.watch<IntroProvider>().isAbsorb;
     return Provider.value(
       value: value,
       child: Container(
           alignment: Alignment.topCenter,
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                   flex: 3,
                   child: Text(
-                    AppString.CONTENT3,
+                    AppString.contentIntrol3,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 28, color: Colors.white),
                   )),
@@ -97,20 +99,20 @@ class IntroScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: Text(" Terms of service ",
+                      onTap: () {
+                        context.read<IntroProvider>().setIsAbsorb();
+                        Navigator.push<Widget>(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const WebViewAccep()));
+                      },
+                      child: const Text('Terms of service',
                           style: TextStyle(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
                               decoration: TextDecoration.underline)),
-                      onTap: () {
-                        context.read<IntroProvider>().setIsAbsorb();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WebViewAccep()));
-                      },
                     ),
-                    Icon(
+                    const Icon(
                       Icons.open_in_new,
                       color: Colors.white,
                       size: 15,
@@ -130,8 +132,8 @@ class IntroScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               checkBox(),
-                              Text(
-                                AppString.ACCEPT,
+                              const Text(
+                                AppString.txtAccept,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -151,15 +153,16 @@ class IntroScreen extends StatelessWidget {
                                             20),
                                       ),
                                       onPressed: () {
-                                        if (model.isChecked)
-                                          Navigator.pushAndRemoveUntil(
+                                        if (model.isChecked) {
+                                          Navigator.pushAndRemoveUntil<Widget>(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      WelcomeScreen()),
+                                                      const WelcomeScreen()),
                                               (route) => false);
+                                        }
                                       },
-                                      child: Text("Go Home")),
+                                      child: const Text('Go Home')),
                             ),
                           ),
                         )

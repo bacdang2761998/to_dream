@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'account_model.dart';
 
 class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
@@ -35,7 +36,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -43,22 +44,22 @@ class _CreateAccountState extends State<CreateAccount> {
         backgroundColor: Colors.blue,
         centerTitle: true,
         title: const Text(
-          "Create New Account",
+          'Create New Account',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
-              onPressed: () => checkDone(),
+              onPressed: () => {checkDone()},
               child: const Text(
-                "Done",
+                'Done',
                 style: TextStyle(color: Colors.white),
               ))
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
+                image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover)),
         child: Column(
           children: [
@@ -75,11 +76,11 @@ class _CreateAccountState extends State<CreateAccount> {
                 key: _formKey,
                 child: Row(
                   children: [
-                    ImageSettingScreen(),
+                    const ImageSettingScreen(),
                     Expanded(
                         child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
+                      child: SizedBox(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,14 +89,15 @@ class _CreateAccountState extends State<CreateAccount> {
                               textDirection: TextDirection.ltr,
                               textCapitalization: TextCapitalization.sentences,
                               controller: _nameController,
-                              decoration: InputDecoration(hintText: "Name"),
+                              decoration:
+                                  const InputDecoration(hintText: 'Name'),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Container(
                                 alignment: Alignment.topRight,
                                 height: 28,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     border: Border(
                                   bottom:
                                       BorderSide(width: 1, color: Colors.grey),
@@ -104,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text("Birthday"),
+                                    const Text('Birthday'),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 15),
                                       child: Consumer<AccountProvider>(
@@ -115,8 +117,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                             showDatePicker(context);
                                           },
                                           child: Text(
-                                            "${model.date.day} / ${model.date.month} / ${model.date.year}",
-                                            style: TextStyle(
+                                            '${model.date.day} / ${model.date.month} / ${model.date.year}',
+                                            style: const TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15),
                                           ),
@@ -132,9 +134,9 @@ class _CreateAccountState extends State<CreateAccount> {
                               textDirection: TextDirection.rtl,
                               keyboardType: TextInputType.number,
                               controller: _lifeSpanController,
-                              decoration: InputDecoration(
-                                  hintText: "Life",
-                                  suffix: const Text(" Year"),
+                              decoration: const InputDecoration(
+                                  hintText: 'Life',
+                                  suffix: Text('Year'),
                                   border: InputBorder.none),
                             ),
                           ],
@@ -169,9 +171,9 @@ class _CreateAccountState extends State<CreateAccount> {
                           borderRadius: BorderRadius.circular(10)),
                       width: double.infinity,
                       height: size.height * 1 / 3,
-                      child: Center(
+                      child: const Center(
                         child: Text(
-                          AppString.CONTENT2,
+                          AppString.contentIntrol2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 24, color: Colors.deepOrangeAccent),
@@ -188,23 +190,23 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
-  void saveAccount() async {
+  Future<void> saveAccount() async {
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(NAME_KEY, _nameController.text);
-    await preferences.setString(YEAR, _lifeSpanController.text);
+    await preferences.setString(nameKey, _nameController.text);
+    await preferences.setString(yearKey, _lifeSpanController.text);
   }
 
   void checkDone() {
     if (_nameController.text.isEmpty || _lifeSpanController.text.isEmpty) {
-      showDialog(
+      showDialog<Widget>(
           context: context,
           builder: (_) => AlertDialog(
                 title:
-                    Center(child: const Text("Please enter all information !")),
+                    const Center(child: Text('Please enter all information !')),
                 actions: [
                   Container(
                       alignment: Alignment.center,
-                      child: Icon(
+                      child: const Icon(
                         Icons.error,
                         color: Colors.redAccent,
                         size: 30,
@@ -213,8 +215,8 @@ class _CreateAccountState extends State<CreateAccount> {
               ));
     } else {
       saveAccount();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BottomBar()));
+      Navigator.push<void>(
+          context, MaterialPageRoute(builder: (context) => const BottomBar()));
     }
   }
 }
@@ -222,11 +224,11 @@ class _CreateAccountState extends State<CreateAccount> {
 class TriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(0, size.height);
-    path.lineTo(size.height, size.width);
-    path.close();
+    final path = Path()
+      ..moveTo(size.width / 2, 0)
+      ..lineTo(0, size.height)
+      ..lineTo(size.height, size.width)
+      ..close();
     return path;
   }
 
@@ -235,7 +237,7 @@ class TriangleClipper extends CustomClipper<Path> {
 }
 
 void showDatePicker(BuildContext context) {
-  showCupertinoModalPopup(
+  showCupertinoModalPopup<Widget>(
       context: context,
       builder: (BuildContext builder) {
         return Container(
@@ -246,7 +248,9 @@ void showDatePicker(BuildContext context) {
                 CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (isNewDate) {
-                if (isNewDate != model.date) model.setDate(isNewDate);
+                if (isNewDate != model.date) {
+                  model.setDate(isNewDate);
+                }
               },
               initialDateTime: model.date,
               maximumYear: DateTime.now().year,

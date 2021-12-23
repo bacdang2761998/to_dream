@@ -1,14 +1,14 @@
 class Account {
-  final String? name;
-  final String? birthDay;
-  final String? year;
-  final String? avataAccount;
   Account({
     this.name,
     this.birthDay,
     this.year,
     this.avataAccount,
   });
+  final String? name;
+  final String? birthDay;
+  final String? year;
+  final String? avataAccount;
 
   @override
   String toString() {

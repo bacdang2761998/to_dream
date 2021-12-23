@@ -18,12 +18,12 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Target Table',
             style: TextStyle(color: Colors.white),
           ),
@@ -33,8 +33,8 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HelpScreen()));
+              Navigator.push<Widget>(context,
+                  MaterialPageRoute(builder: (context) => const HelpScreen()));
             },
           )),
       body: SingleChildScrollView(
@@ -70,21 +70,21 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
   }
 
   Widget _iconColumn(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Consumer<TargetTableProvider>(
         builder: (context, model, child) => Container(
               height: size.height / 7,
               width: size.width / 8,
-              child: model.targetTables[index].icon,
               decoration: BoxDecoration(
                 color: model.targetTables[index].color,
                 border: Border.all(color: model.targetTables[index].color),
               ),
+              child: model.targetTables[index].icon,
             ));
   }
 
   DataTable _buildDataTable(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return DataTable(
         showCheckboxColumn: false,
         dataRowHeight: size.height / 28,
@@ -96,9 +96,9 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               alignment: Alignment.center,
               height: size.height / 14,
               width: size.width / 2,
-              child: Text("${index + 2000} Year"),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white, border: Border(right: BorderSide())),
+              child: Text('${index + 2000} Year'),
             ),
           ),
         ),
@@ -107,7 +107,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
             (index) => DataRow(
                 color: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                  return index % 2 == 0
+                  return index.isEven
                       ? Colors.greenAccent.withOpacity(0.8)
                       : Colors.greenAccent.withOpacity(0.5);
                 }),
@@ -173,12 +173,13 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     Container(
                       alignment: Alignment.centerLeft,
                       width: size.width / 2,
-                      decoration:
-                          BoxDecoration(border: Border(right: BorderSide())),
+                      decoration: const BoxDecoration(
+                          border: Border(right: BorderSide())),
                       child: Consumer<TargetTableProvider>(
                         builder: (context, model, child) => Checkbox(
                           onChanged: (isNewCheckedTarget) {
-                            model.setCheckedTable(isNewCheckedTarget!);
+                            model.setCheckedTable(
+                                isNewCheckedTarget: isNewCheckedTarget!);
                           },
                           value: model.isCheckedTarget,
                         ),
@@ -188,14 +189,14 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                 ))));
   }
 
-  _showModelBottomSheet(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
+  Future<void> _showModelBottomSheet(BuildContext context, int index) {
+    final size = MediaQuery.of(context).size;
     return showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         isScrollControlled: true,
         context: context,
-        builder: (context) => Container(
+        builder: (context) => SizedBox(
               height: size.height * 0.9,
               child: Center(
                 child: Column(
@@ -205,7 +206,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                         height: size.height / 10,
                         decoration: BoxDecoration(
                             color: model.targetTables[index].color,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20),
                             )),
@@ -223,7 +224,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(Icons.cancel))
+                                icon: const Icon(Icons.cancel))
                           ],
                         ),
                       ),

@@ -14,7 +14,7 @@ class _HelpScreenState extends State<HelpScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final _controller = PageController(
       initialPage: 0,
     );
@@ -28,20 +28,20 @@ class _HelpScreenState extends State<HelpScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.close,
                   color: Colors.white,
                 ))
           ],
-          title: Text(
-            "Support",
+          title: const Text(
+            'Support',
             style: TextStyle(color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: size.height / 2,
                 child: Stack(
                   children: [
@@ -52,15 +52,15 @@ class _HelpScreenState extends State<HelpScreen> {
                         child: PageView(
                           onPageChanged: (index) {
                             setState(() {
-                              this.selectedIndex = index;
+                              selectedIndex = index;
                             });
                           },
                           controller: _controller,
                           scrollDirection: Axis.horizontal,
                           children: [
-                            customPage(AppString.CONTENT1),
-                            customPage(AppString.CONTENT2),
-                            customPage(AppString.CONTENT3),
+                            customPage(AppString.contentIntrol1),
+                            customPage(AppString.contentIntrol2),
+                            customPage(AppString.contentIntrol3),
                           ],
                         ),
                       ),
@@ -70,17 +70,16 @@ class _HelpScreenState extends State<HelpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          child: Center(
-                            child: SmoothPageIndicator(
-                              controller: _controller,
-                              count: 3,
-                              effect: WormEffect(
-                                  activeDotColor: Colors.blueAccent,
-                                  dotColor: Colors.white38,
-                                  dotHeight: 8,
-                                  dotWidth: 8,
-                                  type: WormType.thin),
-                            ),
+                          alignment: Alignment.center,
+                          child: SmoothPageIndicator(
+                            controller: _controller,
+                            count: 3,
+                            effect: const WormEffect(
+                                activeDotColor: Colors.blueAccent,
+                                dotColor: Colors.white38,
+                                dotHeight: 8,
+                                dotWidth: 8,
+                                type: WormType.thin),
                           ),
                         )
                       ],
@@ -89,7 +88,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.fromLTRB(30, 0, 30, 20),
+                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 20),
                   child: imagePage())
             ],
           ),
@@ -100,17 +99,17 @@ class _HelpScreenState extends State<HelpScreen> {
     return Text(
       content,
       textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.white, fontSize: 24),
+      style: const TextStyle(color: Colors.white, fontSize: 24),
     );
   }
 
   Widget imagePage() {
-    if (this.selectedIndex == 0) {
-      return Image.asset("assets/images/help.png");
-    } else if (this.selectedIndex == 1) {
-      return Image.asset("assets/images/background.png");
+    if (selectedIndex == 0) {
+      return Image.asset('assets/images/help.png');
+    } else if (selectedIndex == 1) {
+      return Image.asset('assets/images/background.png');
     } else {
-      return Image.asset("assets/images/splash.png");
+      return Image.asset('assets/images/splash.png');
     }
   }
 }

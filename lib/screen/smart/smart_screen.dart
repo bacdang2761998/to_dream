@@ -10,6 +10,11 @@ class SmartScreen extends StatefulWidget {
 class _SmartScreenState extends State<SmartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Smart'),
+        ),
+        body: const Text('Smart Screen'));
   }
 }
