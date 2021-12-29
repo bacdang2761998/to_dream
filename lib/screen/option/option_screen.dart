@@ -1,3 +1,5 @@
+import 'package:dream/generated/l10n.dart';
+import 'package:dream/screen/option/language_screen.dart';
 import 'package:flutter/material.dart';
 
 class OptionScreen extends StatefulWidget {
@@ -18,11 +20,22 @@ class _OptionScreenState extends State<OptionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Option",
+          S.of(context).option,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LanguageScreen()));
+              },
+              child: Text(
+                S.of(context).language,
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

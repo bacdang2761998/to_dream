@@ -1,4 +1,4 @@
-import 'package:dream/app_other/app_string.dart';
+import 'package:dream/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -14,6 +14,7 @@ class _HelpScreenState extends State<HelpScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     Size size = MediaQuery.of(context).size;
     final _controller = PageController(
       initialPage: 0,
@@ -34,7 +35,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ))
           ],
           title: Text(
-            "Support",
+            locale.support,
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -58,9 +59,9 @@ class _HelpScreenState extends State<HelpScreen> {
                           controller: _controller,
                           scrollDirection: Axis.horizontal,
                           children: [
-                            customPage(AppString.CONTENT1),
-                            customPage(AppString.CONTENT2),
-                            customPage(AppString.CONTENT3),
+                            customPage(locale.content1),
+                            customPage(locale.content2),
+                            customPage(locale.content3),
                           ],
                         ),
                       ),

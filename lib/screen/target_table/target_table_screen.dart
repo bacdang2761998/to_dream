@@ -1,7 +1,10 @@
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/help/help_screen.dart';
 import 'package:dream/screen/target_table/target_table_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'target_model.dart';
 
 class TargetTableScreen extends StatefulWidget {
   const TargetTableScreen({Key? key}) : super(key: key);
@@ -19,12 +22,12 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    final locale = S.of(context);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Target Table',
+            locale.targetTable,
             style: TextStyle(color: Colors.white),
           ),
           leading: IconButton(
@@ -42,13 +45,17 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
           Column(
             children: [
               Container(
+                alignment: Alignment.center,
                 height: size.height / 14,
                 width: size.width / 8,
                 decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.grey[200],
                     border: Border.all(
                       color: Colors.grey,
                     )),
+                child: Text(
+                  locale.year,
+                ),
               ),
               _iconColumn(context, 0),
               _iconColumn(context, 1),
@@ -71,16 +78,15 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
 
   Widget _iconColumn(BuildContext context, int index) {
     Size size = MediaQuery.of(context).size;
-    return Consumer<TargetTableProvider>(
-        builder: (context, model, child) => Container(
-              height: size.height / 7,
-              width: size.width / 8,
-              child: model.targetTables[index].icon,
-              decoration: BoxDecoration(
-                color: model.targetTables[index].color,
-                border: Border.all(color: model.targetTables[index].color),
-              ),
-            ));
+    return Container(
+      height: size.height / 7,
+      width: size.width / 8,
+      child: targetTables[index].icon,
+      decoration: BoxDecoration(
+        color: targetTables[index].color,
+        border: Border.all(color: targetTables[index].color),
+      ),
+    );
   }
 
   DataTable _buildDataTable(BuildContext context) {
@@ -96,7 +102,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               alignment: Alignment.center,
               height: size.height / 14,
               width: size.width / 2,
-              child: Text("${index + 2000} Year"),
+              child: Text("${index + 2000}"),
               decoration: BoxDecoration(
                   color: Colors.white, border: Border(right: BorderSide())),
             ),
@@ -200,32 +206,29 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    Consumer<TargetTableProvider>(
-                      builder: (context, model, child) => Container(
-                        height: size.height / 10,
-                        decoration: BoxDecoration(
-                            color: model.targetTables[index].color,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            )),
-                        child: Row(
-                          children: [
-                            Center(
-                              child: Row(
-                                children: [
-                                  model.targetTables[index].icon,
-                                  Text(model.targetTables[index].title),
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Icons.cancel))
-                          ],
-                        ),
+                    Container(
+                      height: size.height / 10,
+                      decoration: BoxDecoration(
+                          color: targetTables[index].color,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              targetTables[index].icon,
+                              Text(targetTables[index].title),
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.cancel))
+                        ],
                       ),
                     ),
                   ],

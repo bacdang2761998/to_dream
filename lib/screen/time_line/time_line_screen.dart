@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/account_model.dart';
 import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/account/create_account.dart';
@@ -23,7 +24,6 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   final _controller = PageController(
     initialPage: 0,
   );
-
   @override
   void initState() {
     super.initState();
@@ -38,11 +38,12 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Time Line',
+            locale.timeLineTitle,
             style: TextStyle(color: Colors.white),
           ),
           leading: IconButton(
@@ -76,7 +77,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
               height: 30,
               decoration: BoxDecoration(border: Border(bottom: BorderSide())),
               child: Text(
-                "${_dateNow.year} Year ${_dateNow.month} Month ${_dateNow.day} Day ",
+                "${_dateNow.year} ${locale.year} ${_dateNow.month} ${locale.month} ${_dateNow.day} ${locale.day} ",
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -119,6 +120,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   }
 
   Widget timeLineView({required BuildContext context}) {
+    final locale = S.of(context);
     final value = context.watch<AccountProvider>();
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
@@ -128,7 +130,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
           height: size.height * 0.01,
         ),
         Text(
-          '${value.account?.year ?? '0'} Year',
+          '${value.account?.year ?? '0'} ${locale.year}',
           style: TextStyle(fontSize: 24),
         ),
         TweenAnimationBuilder<double>(
@@ -136,7 +138,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
             duration: Duration(milliseconds: 700),
             builder: (BuildContext context, double value, child) {
               return Text(
-                "${value.toStringAsFixed(2)} Point",
+                "${value.toStringAsFixed(2)} ${locale.point}",
                 style: TextStyle(color: Colors.blue, fontSize: 36),
               );
             }),
@@ -188,6 +190,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   }
 
   Widget timeLineAddView({required BuildContext context}) {
+    final locale = S.of(context);
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
@@ -198,9 +201,9 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            Text("0 Year", style: TextStyle(fontSize: 24)),
+            Text("0 ${locale.year}", style: TextStyle(fontSize: 24)),
             Text(
-              "0 Point",
+              "0 ${locale.point}",
               style: TextStyle(color: Colors.blue, fontSize: 36),
             ),
             Padding(

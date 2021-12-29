@@ -1,4 +1,5 @@
 import 'package:dream/app_other/app_string.dart';
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/introlduction/introl_state.dart';
 import 'package:dream/screen/introlduction/introl_state_notifier.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
@@ -15,6 +16,7 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       body: Stack(children: [
@@ -26,9 +28,14 @@ class IntroScreen extends StatelessWidget {
               controller: _controller,
               scrollDirection: Axis.horizontal,
               children: [
-                myPage(content: AppString.CONTENT1),
-                myPage(content: AppString.CONTENT3),
-                myPage3(context: context)
+                myPage(content: locale.content1),
+                myPage(content: locale.content2),
+                myPage3(
+                    context: context,
+                    content: locale.content3,
+                    tearms: locale.terms,
+                    accept: locale.accept,
+                    txtButton: locale.goHome)
               ],
             ),
           ),
@@ -79,7 +86,13 @@ class IntroScreen extends StatelessWidget {
             style: TextStyle(fontSize: 28, color: Colors.white)));
   }
 
-  Widget myPage3({required BuildContext context}) {
+  Widget myPage3({
+    required BuildContext context,
+    required String content,
+    required String tearms,
+    required String accept,
+    required String txtButton,
+  }) {
     final value = context.watch<IntrolState>();
     return Provider.value(
       value: value,
@@ -90,7 +103,7 @@ class IntroScreen extends StatelessWidget {
               Expanded(
                   flex: 3,
                   child: Text(
-                    AppString.CONTENT3,
+                    content,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 28, color: Colors.white),
                   )),
@@ -99,7 +112,7 @@ class IntroScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: Text(" Terms of service ",
+                      child: Text(tearms,
                           style: TextStyle(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
@@ -134,7 +147,7 @@ class IntroScreen extends StatelessWidget {
                             children: [
                               checkBox(context),
                               Text(
-                                AppString.ACCEPT,
+                                accept,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -159,7 +172,7 @@ class IntroScreen extends StatelessWidget {
                                                 WelcomeScreen()),
                                         (route) => false);
                                 },
-                                child: Text("Go Home")),
+                                child: Text(txtButton)),
                           ),
                         ),
                       ],
