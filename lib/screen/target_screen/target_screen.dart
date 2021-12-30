@@ -1,3 +1,4 @@
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/help/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -22,12 +23,13 @@ class _TargetScreenState extends State<TargetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Target',
+          locale.target,
           style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
@@ -62,14 +64,14 @@ class _TargetScreenState extends State<TargetScreen> {
                   label: Container(
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.center,
-                      child: const Text('End Date'))),
+                      child: Text(locale.endDate))),
               GridColumn(
                   columnName: 'designation',
                   label: Container(
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.center,
-                      child: const Text(
-                        'Designation',
+                      child: Text(
+                        locale.designation,
                         overflow: TextOverflow.ellipsis,
                       ))),
               GridColumn(
@@ -77,7 +79,7 @@ class _TargetScreenState extends State<TargetScreen> {
                   label: Container(
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.center,
-                      child: const Text('Priority Level'))),
+                      child: Text(locale.prioritylevel))),
             ],
           ),
           Positioned(
@@ -94,7 +96,7 @@ class _TargetScreenState extends State<TargetScreen> {
                 onPressed: () {},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.add), Text("Add")],
+                  children: [Icon(Icons.add), Text(locale.add)],
                 )),
           )
         ],

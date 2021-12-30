@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/account_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../app_other/app_string.dart';
 
 class ImageSettingScreen extends StatefulWidget {
   const ImageSettingScreen({Key? key}) : super(key: key);
@@ -56,11 +56,11 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
           builder: (context) => CupertinoActionSheet(
                 actions: [
                   CupertinoActionSheetAction(
-                      child: Text(AppString.Camera),
+                      child: Text(S.of(context).camera),
                       onPressed: () => pickImage(ImageSource.camera)),
                   Divider(),
                   CupertinoActionSheetAction(
-                      child: Text(AppString.Gallery),
+                      child: Text(S.of(context).gallery),
                       onPressed: () => pickImage(ImageSource.gallery)),
                 ],
               ));
@@ -72,7 +72,7 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
           children: [
             ListTile(
                 leading: Icon(Icons.camera_alt),
-                title: Text(AppString.Camera),
+                title: Text(S.of(context).camera),
                 onTap: () {
                   pickImage(ImageSource.camera);
                   Navigator.of(context).pop();
@@ -80,7 +80,7 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
             Divider(),
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text(AppString.Gallery),
+              title: Text(S.of(context).gallery),
               onTap: () {
                 pickImage(ImageSource.gallery);
                 Navigator.of(context).pop();

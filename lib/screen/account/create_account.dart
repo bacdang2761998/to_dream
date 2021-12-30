@@ -1,4 +1,5 @@
 import 'package:dream/app_other/app_string.dart';
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/account/image_setting_screen.dart';
 import 'package:dream/screen/bottom_bar/bottom_bar.dart';
@@ -35,6 +36,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -42,15 +44,15 @@ class _CreateAccountState extends State<CreateAccount> {
         elevation: 5,
         backgroundColor: Colors.blue,
         centerTitle: true,
-        title: const Text(
-          "Create New Account",
+        title: Text(
+          locale.account,
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
-              onPressed: () => checkDone(),
-              child: const Text(
-                "Done",
+              onPressed: () => checkDone(errorTitle: locale.error),
+              child: Text(
+                locale.done,
                 style: TextStyle(color: Colors.white),
               ))
         ],
@@ -88,7 +90,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               textDirection: TextDirection.ltr,
                               textCapitalization: TextCapitalization.sentences,
                               controller: _nameController,
-                              decoration: InputDecoration(hintText: "Name"),
+                              decoration:
+                                  InputDecoration(hintText: locale.name),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
@@ -104,7 +107,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text("Birthday"),
+                                    Text(locale.birthday),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 15),
                                       child: Consumer<AccountProvider>(
@@ -133,8 +136,8 @@ class _CreateAccountState extends State<CreateAccount> {
                               keyboardType: TextInputType.number,
                               controller: _lifeSpanController,
                               decoration: InputDecoration(
-                                  hintText: "Life",
-                                  suffix: const Text(" Year"),
+                                  hintText: locale.life,
+                                  suffix: Text(locale.year),
                                   border: InputBorder.none),
                             ),
                           ],
@@ -171,7 +174,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       height: size.height * 1 / 3,
                       child: Center(
                         child: Text(
-                          AppString.CONTENT2,
+                          locale.content2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 24, color: Colors.deepOrangeAccent),
@@ -190,17 +193,16 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void saveAccount() async {
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(NAME_KEY, _nameController.text);
-    await preferences.setString(YEAR, _lifeSpanController.text);
+    await preferences.setString(nameKey, _nameController.text);
+    await preferences.setString(Year, _lifeSpanController.text);
   }
 
-  void checkDone() {
+  void checkDone({required String errorTitle}) {
     if (_nameController.text.isEmpty || _lifeSpanController.text.isEmpty) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                title:
-                    Center(child: const Text("Please enter all information !")),
+                title: Center(child: Text(errorTitle)),
                 actions: [
                   Container(
                       alignment: Alignment.center,

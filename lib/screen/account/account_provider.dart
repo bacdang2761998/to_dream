@@ -4,10 +4,10 @@ import 'package:dream/screen/account/account_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const NAME_KEY = 'name';
-const BIRTHDAY_KEY = 'birthDay';
-const YEAR = 'year';
-const IMAGE_KEY = 'image';
+const nameKey = 'name';
+const birthKey = 'birthDay';
+const Year = 'year';
+const imagKey = 'image';
 
 class AccountProvider extends ChangeNotifier {
   File? _image;
@@ -21,7 +21,7 @@ class AccountProvider extends ChangeNotifier {
   Account? _account;
   Account? get account => _account;
 
-  Future setImage(var imagePicker) async {
+  Future setImage(File? imagePicker) async {
     _image = imagePicker;
     notifyListeners();
   }
@@ -33,10 +33,10 @@ class AccountProvider extends ChangeNotifier {
 
   Future<void> getAccountInfo() async {
     final preferences = await SharedPreferences.getInstance();
-    final name = preferences.getString(NAME_KEY);
-    final birthDay = preferences.getString(BIRTHDAY_KEY);
-    final year = preferences.getString(YEAR);
-    final imageAvata = preferences.getString(IMAGE_KEY);
+    final name = preferences.getString(nameKey);
+    final birthDay = preferences.getString(birthKey);
+    final year = preferences.getString(Year);
+    final imageAvata = preferences.getString(imagKey);
     final newacc = Account(
       name: name,
       birthDay: birthDay,
