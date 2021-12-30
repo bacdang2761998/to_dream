@@ -1,4 +1,3 @@
-import 'package:dream/app_other/app_string.dart';
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/introlduction/introl_state.dart';
 import 'package:dream/screen/introlduction/introl_state_notifier.dart';

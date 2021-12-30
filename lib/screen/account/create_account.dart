@@ -1,4 +1,3 @@
-import 'package:dream/app_other/app_string.dart';
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/account_provider.dart';
 import 'package:dream/screen/account/image_setting_screen.dart';

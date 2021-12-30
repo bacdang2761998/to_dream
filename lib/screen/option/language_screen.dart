@@ -16,20 +16,30 @@ class _LanguageScreenState extends State<LanguageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).lagugeSettingtitle),
+        title: Text(
+          S.of(context).lagugeSettingtitle,
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             ListTile(
-              title: Text("Vietnames"),
+              title: Text(
+                "Vietnames",
+                style: TextStyle(fontSize: 24),
+              ),
               onTap: () {
                 context.read<LanguageProvider>().changeLocale('vi', 'VN');
               },
             ),
+            Divider(),
             ListTile(
-              title: Text("English"),
+              title: Text(
+                "English",
+                style: TextStyle(fontSize: 24),
+              ),
               onTap: () {
                 context.read<LanguageProvider>().changeLocale('en', 'US');
               },

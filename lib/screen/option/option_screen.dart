@@ -24,7 +24,6 @@ class _OptionScreenState extends State<OptionScreen> {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        // automaticallyImplyLeading: false,
         actions: [
           TextButton(
               onPressed: () {
