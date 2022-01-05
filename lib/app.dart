@@ -27,12 +27,12 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<LanguageProvider>(
         builder: (_, model, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
           locale: model.currentLocale,
           localizationsDelegates: [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            // GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
           title: 'To Dream',

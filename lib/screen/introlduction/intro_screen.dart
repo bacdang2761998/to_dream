@@ -2,13 +2,27 @@ import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/introlduction/introl_state.dart';
 import 'package:dream/screen/introlduction/introl_state_notifier.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
+import 'package:dream/screen/option/language_provider.dart';
 import 'package:dream/screen/welcom/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({Key? key}) : super(key: key);
+
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  @override
+  void initState() {
+    Provider.of<LanguageProvider>(context, listen: false).getLocale();
+    super.initState();
+  }
+
   final _controller = PageController(
     initialPage: 0,
   );

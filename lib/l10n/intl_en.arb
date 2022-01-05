@@ -33,5 +33,9 @@
     "error" : "Please enter all information !",
     "terms" : " Terms of service ",
     "accept" : "I have read and agree to the above terms",
-    "goHome"  : "Go Home"
+    "goHome"  : "Go Home",
+    "createNew" : "Do you want to create a new account ?",
+    "yes" : "Yes",
+    "no" : "No",
+    "yourMission" : "Your mission"
 }

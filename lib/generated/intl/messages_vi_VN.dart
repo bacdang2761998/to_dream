@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tôi cảm ơn tất cả những người đã nói không với tôi. Chính vì họ mà tôi đang tự làm. — Albert Einstein"),
         "content3": MessageLookupByLibrary.simpleMessage(
             "Đừng dừng lại khi bạn mệt mỏi. Dừng lại khi bạn làm xong - Marilyn Monroe."),
+        "createNew": MessageLookupByLibrary.simpleMessage(
+            "Bạn có muốn tạo một tài khoản mới"),
         "day": MessageLookupByLibrary.simpleMessage("Ngày"),
         "designation": MessageLookupByLibrary.simpleMessage("Chỉ định"),
         "done": MessageLookupByLibrary.simpleMessage("Đồng ý"),
@@ -51,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "money": MessageLookupByLibrary.simpleMessage("Tiền bạc"),
         "month": MessageLookupByLibrary.simpleMessage("Tháng"),
         "name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "no": MessageLookupByLibrary.simpleMessage("Không"),
         "option": MessageLookupByLibrary.simpleMessage("Tùy chọn"),
         "point": MessageLookupByLibrary.simpleMessage("Điểm"),
         "prioritylevel": MessageLookupByLibrary.simpleMessage("Ưu tiên"),
@@ -62,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ "),
         "timeLineTitle": MessageLookupByLibrary.simpleMessage("Dòng thời gian"),
         "work": MessageLookupByLibrary.simpleMessage("Công việc"),
-        "year": MessageLookupByLibrary.simpleMessage("Năm")
+        "year": MessageLookupByLibrary.simpleMessage("Năm"),
+        "yes": MessageLookupByLibrary.simpleMessage("Có"),
+        "yourMission": MessageLookupByLibrary.simpleMessage("Nhiệm vụ của bạn")
       };
 }

@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "I am thankful to all who said no to me. It is because of them that I\'m doing it myself. — Albert Einstein"),
         "content3": MessageLookupByLibrary.simpleMessage(
             "Don\'t stop when you are tired. Stop when you are done - Marilyn Monroe."),
+        "createNew": MessageLookupByLibrary.simpleMessage(
+            "Do you want to create a new account ?"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "designation": MessageLookupByLibrary.simpleMessage("Designation"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
@@ -51,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "money": MessageLookupByLibrary.simpleMessage("Money"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "option": MessageLookupByLibrary.simpleMessage("Option"),
         "point": MessageLookupByLibrary.simpleMessage("Point"),
         "prioritylevel": MessageLookupByLibrary.simpleMessage("Priority Level"),
@@ -62,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage(" Terms of service "),
         "timeLineTitle": MessageLookupByLibrary.simpleMessage("Time Line"),
         "work": MessageLookupByLibrary.simpleMessage("Work"),
-        "year": MessageLookupByLibrary.simpleMessage("Year")
+        "year": MessageLookupByLibrary.simpleMessage("Year"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yourMission": MessageLookupByLibrary.simpleMessage("Your mission")
       };
 }
