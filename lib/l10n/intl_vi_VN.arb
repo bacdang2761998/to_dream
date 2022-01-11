@@ -32,10 +32,12 @@
     "life": "Sống",
     "error" : "Xin nhập đầy đủ thông tin !",
     "terms" : "Điều khoản dịch vụ ",
-    "accept" : "Tôi đã đọc và đồng ý với các điều khoản trên",
+    "accept" : "Tôi đã đọc và đồng ý với các điều khoản",
     "goHome"  : "Trang chủ",
     "createNew" : "Bạn có muốn tạo một tài khoản mới",
     "yes" : "Có",
     "no" : "Không",
-    "yourMission" : "Nhiệm vụ của bạn"
+    "yourMission" : "Nhiệm vụ của bạn",
+    "vN" : "Tiếng Việt",
+    "english" : "Tiếng Anh"
 }

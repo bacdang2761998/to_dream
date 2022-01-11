@@ -1,6 +1,7 @@
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/help/help_screen.dart';
-import 'package:dream/screen/target_table/target_table_provider.dart';
+import 'package:dream/screen/target_table/target_table_state.dart';
+import 'package:dream/screen/target_table/target_table_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -120,6 +121,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
   DataTable _buildDataTable(
       BuildContext context, List<TargetModel> targetTables) {
     Size size = MediaQuery.of(context).size;
+    final value = context.watch<TargetTableState>();
     return DataTable(
         showCheckboxColumn: false,
         dataRowHeight: size.height / 28,
@@ -210,12 +212,12 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                       width: size.width / 2,
                       decoration:
                           BoxDecoration(border: Border(right: BorderSide())),
-                      child: Consumer<TargetTableProvider>(
+                      child: Consumer<TargetTableStateNotifier>(
                         builder: (context, model, child) => Checkbox(
-                          onChanged: (isNewCheckedTarget) {
-                            model.setCheckedTable(isNewCheckedTarget!);
+                          onChanged: (isNewTargetCheck) {
+                            model.setTargetChecked(isNewTargetCheck!);
                           },
-                          value: model.isCheckedTarget,
+                          value: value.isTargetChecked,
                         ),
                       ),
                     ),

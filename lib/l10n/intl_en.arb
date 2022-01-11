@@ -37,5 +37,7 @@
     "createNew" : "Do you want to create a new account ?",
     "yes" : "Yes",
     "no" : "No",
-    "yourMission" : "Your mission"
+    "yourMission" : "Your mission",
+    "vN" : "VietNamese",
+    "english" : "English"
 }

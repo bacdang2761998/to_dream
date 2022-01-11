@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accept": MessageLookupByLibrary.simpleMessage(
-            "Tôi đã đọc và đồng ý với các điều khoản trên"),
+            "Tôi đã đọc và đồng ý với các điều khoản"),
         "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add": MessageLookupByLibrary.simpleMessage("Thêm"),
         "birthday": MessageLookupByLibrary.simpleMessage("Sinh nhật"),
@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "education": MessageLookupByLibrary.simpleMessage("Giáo dục"),
         "endDate": MessageLookupByLibrary.simpleMessage(" Ngày kết thúc"),
+        "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "error":
             MessageLookupByLibrary.simpleMessage("Xin nhập đầy đủ thông tin !"),
         "gallery": MessageLookupByLibrary.simpleMessage("Bộ sưu tập"),
@@ -64,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "targetTable": MessageLookupByLibrary.simpleMessage("Bảng mục tiêu"),
         "terms": MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ "),
         "timeLineTitle": MessageLookupByLibrary.simpleMessage("Dòng thời gian"),
+        "vN": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "work": MessageLookupByLibrary.simpleMessage("Công việc"),
         "year": MessageLookupByLibrary.simpleMessage("Năm"),
         "yes": MessageLookupByLibrary.simpleMessage("Có"),

@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/account_model.dart';
-import 'package:dream/screen/account/account_provider.dart';
+import 'package:dream/screen/account/account_state.dart';
+import 'package:dream/screen/account/account_state_notifier.dart';
 import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/help/help_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<AccountProvider>(context, listen: false).getAccountInfo();
+    Provider.of<AccountStateNotifier>(context, listen: false).getAccountInfo();
   }
 
   @override
@@ -121,7 +122,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
 
   Widget timeLineView({required BuildContext context}) {
     final locale = S.of(context);
-    final value = context.watch<AccountProvider>();
+    final value = context.watch<AccountState>();
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
@@ -154,7 +155,7 @@ class _TimeLineScreenState extends State<TimeLineScreen> {
                   alignment: Alignment.topCenter,
                   padding: const EdgeInsets.only(top: 50),
                   child: Text(
-                    context.watch<AccountProvider>().account?.name ?? '',
+                    context.watch<AccountState>().account?.name ?? '',
                     style: TextStyle(fontSize: 24),
                   ),
                 ),

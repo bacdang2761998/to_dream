@@ -1,10 +1,12 @@
-import 'package:dream/screen/option/language_provider.dart';
-import 'package:dream/screen/account/account_provider.dart';
+import 'package:dream/screen/account/account_state.dart';
+import 'package:dream/screen/account/account_state_notifier.dart';
 import 'package:dream/screen/introlduction/intro_screen.dart';
-import 'package:dream/screen/introlduction/introl_provider.dart';
 import 'package:dream/screen/introlduction/introl_state.dart';
 import 'package:dream/screen/introlduction/introl_state_notifier.dart';
-import 'package:dream/screen/target_table/target_table_provider.dart';
+import 'package:dream/screen/option/langague_state_notifier.dart';
+import 'package:dream/screen/option/language_state.dart';
+import 'package:dream/screen/target_table/target_table_state.dart';
+import 'package:dream/screen/target_table/target_table_state_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,16 +21,17 @@ class MyApp extends StatelessWidget {
       providers: [
         StateNotifierProvider<IntrolStateNotifier, IntrolState>(
             create: (_) => IntrolStateNotifier()),
-        ChangeNotifierProvider<LanguageProvider>(
-            create: (_) => LanguageProvider()),
-        ChangeNotifierProvider(create: (_) => IntroProvider()),
-        ChangeNotifierProvider(create: (_) => AccountProvider()),
-        ChangeNotifierProvider(create: (_) => TargetTableProvider()),
+        StateNotifierProvider<TargetTableStateNotifier, TargetTableState>(
+            create: (_) => TargetTableStateNotifier()),
+        StateNotifierProvider<AccountStateNotifier, AccountState>(
+            create: (_) => AccountStateNotifier()),
+        StateNotifierProvider<LanguageStateNotifer, LanguageState>(
+            create: (_) => LanguageStateNotifer()),
       ],
-      child: Consumer<LanguageProvider>(
-        builder: (_, model, child) => MaterialApp(
+      child: Builder(
+        builder: (context) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          locale: model.currentLocale,
+          locale: context.watch<LanguageState>().currentLocale,
           localizationsDelegates: [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

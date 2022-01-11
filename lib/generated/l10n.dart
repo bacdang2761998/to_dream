@@ -439,6 +439,26 @@ class S {
       args: [],
     );
   }
+
+  /// `VietNamese`
+  String get vN {
+    return Intl.message(
+      'VietNamese',
+      name: 'vN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -448,7 +468,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'vi', countryCode: 'VN'),
-      Locale.fromSubtags(languageCode: 'vn'),
     ];
   }
 
