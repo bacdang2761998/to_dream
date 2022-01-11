@@ -1,3 +1,4 @@
+import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/account/create_account.dart';
 import 'package:dream/screen/bottom_bar/bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,11 +15,12 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final locale = S.of(context);
     return Scaffold(
-        backgroundColor: Colors.amber[50],
+        backgroundColor: Colors.lightBlue,
         body: Center(
           child: AlertDialog(
-            title: Text("Do you want to create a new account ?"),
+            title: Text(locale.createNew),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -31,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             MaterialPageRoute(builder: (_) => CreateAccount()),
                             (route) => false);
                       },
-                      child: Text(" Yes")),
+                      child: Text(locale.yes)),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
@@ -39,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             MaterialPageRoute(builder: (_) => BottomBar()),
                             (route) => false);
                       },
-                      child: Text(" No")),
+                      child: Text(locale.no)),
                 ],
               )
             ],

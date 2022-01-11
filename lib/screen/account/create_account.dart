@@ -1,6 +1,5 @@
-import 'package:dream/app_other/app_string.dart';
 import 'package:dream/generated/l10n.dart';
-import 'package:dream/screen/account/account_provider.dart';
+import 'package:dream/screen/account/account_state_notifier.dart';
 import 'package:dream/screen/account/image_setting_screen.dart';
 import 'package:dream/screen/bottom_bar/bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'account_model.dart';
+import 'account_state.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -37,6 +37,7 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     final locale = S.of(context);
+    final value = context.watch<AccountState>().date ?? DateTime.now();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -57,136 +58,138 @@ class _CreateAccountState extends State<CreateAccount> {
               ))
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover)),
-        child: Column(
-          children: [
-            Container(
-              height: size.height * 1 / 20,
-              color: Colors.white60,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Form(
-                key: _formKey,
-                child: Row(
-                  children: [
-                    ImageSettingScreen(),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            TextFormField(
-                              textDirection: TextDirection.ltr,
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: _nameController,
-                              decoration:
-                                  InputDecoration(hintText: locale.name),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Container(
-                                alignment: Alignment.topRight,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                  bottom:
-                                      BorderSide(width: 1, color: Colors.grey),
-                                )),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(locale.birthday),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 15),
-                                      child: Consumer<AccountProvider>(
-                                        builder: (BuildContext context, model,
-                                                child) =>
-                                            GestureDetector(
-                                          onTap: () {
-                                            showDatePicker(context);
-                                          },
-                                          child: Text(
-                                            "${model.date.day} / ${model.date.month} / ${model.date.year}",
-                                            style: TextStyle(
-                                                color: Colors.black38,
-                                                fontSize: 15),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.cover)),
+            child: Column(
+              children: [
+                Container(
+                  height: size.height * 1 / 20,
+                  color: Colors.white60,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Row(
+                      children: [
+                        ImageSettingScreen(),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textDirection: TextDirection.ltr,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  controller: _nameController,
+                                  decoration:
+                                      InputDecoration(hintText: locale.name),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    alignment: Alignment.topRight,
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      bottom: BorderSide(
+                                          width: 1, color: Colors.grey),
+                                    )),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(locale.birthday),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showDatePicker(context);
+                                            },
+                                            child: Text(
+                                              "${value.day} / ${value.month} / ${value.year}",
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                TextFormField(
+                                  autocorrect: true,
+                                  textDirection: TextDirection.rtl,
+                                  keyboardType: TextInputType.number,
+                                  controller: _lifeSpanController,
+                                  decoration: InputDecoration(
+                                      hintText: locale.life,
+                                      suffix: Text(locale.year),
+                                      border: InputBorder.none),
+                                ),
+                              ],
                             ),
-                            TextFormField(
-                              autocorrect: true,
-                              textDirection: TextDirection.rtl,
-                              keyboardType: TextInputType.number,
-                              controller: _lifeSpanController,
-                              decoration: InputDecoration(
-                                  hintText: locale.life,
-                                  suffix: Text(locale.year),
-                                  border: InputBorder.none),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ))
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  ClipPath(
-                    clipper: TriangleClipper(),
-                    child: Container(
-                      color: Colors.white,
-                      height: 50,
-                      width: 50,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.white10,
                           ),
-                          borderRadius: BorderRadius.circular(10)),
-                      width: double.infinity,
-                      height: size.height * 1 / 3,
-                      child: Center(
-                        child: Text(
-                          locale.content2,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24, color: Colors.deepOrangeAccent),
-                        ),
-                      ),
+                        ))
+                      ],
                     ),
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      ClipPath(
+                        clipper: TriangleClipper(),
+                        child: Container(
+                          color: Colors.white,
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.white10,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          width: double.infinity,
+                          height: size.height * 1 / 3,
+                          child: Center(
+                            child: Text(
+                              locale.content2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 24, color: Colors.deepOrangeAccent),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -237,23 +240,23 @@ class TriangleClipper extends CustomClipper<Path> {
 }
 
 void showDatePicker(BuildContext context) {
+  final value =
+      Provider.of<AccountState>(context, listen: false).date ?? DateTime.now();
   showCupertinoModalPopup(
       context: context,
       builder: (BuildContext builder) {
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(context).copyWith().size.height * 0.25,
-          color: Colors.white,
-          child: Consumer<AccountProvider>(
-            builder: (BuildContext context, model, child) =>
-                CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              onDateTimeChanged: (isNewDate) {
-                if (isNewDate != model.date) model.setDate(isNewDate);
-              },
-              initialDateTime: model.date,
-              maximumYear: DateTime.now().year,
-              minimumYear: 1900,
-            ),
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            onDateTimeChanged: (isNewDate) {
+              if (isNewDate != value) {
+                context.read<AccountStateNotifier>().setDate(isNewDate);
+              }
+            },
+            initialDateTime: value,
+            maximumYear: DateTime.now().year,
+            minimumYear: 1900,
           ),
         );
       });

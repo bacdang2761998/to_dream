@@ -1,15 +1,28 @@
-import 'package:dream/app_other/app_string.dart';
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/introlduction/introl_state.dart';
 import 'package:dream/screen/introlduction/introl_state_notifier.dart';
 import 'package:dream/screen/introlduction/webview_accep.dart';
+import 'package:dream/screen/option/langague_state_notifier.dart';
 import 'package:dream/screen/welcom/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({Key? key}) : super(key: key);
+
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<LanguageStateNotifer>().getLanguage();
+  }
+
   final _controller = PageController(
     initialPage: 0,
   );
@@ -141,13 +154,14 @@ class IntroScreen extends StatelessWidget {
                     opacity: !value.isAbsorb ? 0.5 : 1,
                     child: Column(
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               checkBox(context),
                               Text(
                                 accept,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -158,7 +172,7 @@ class IntroScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 25),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.lightBlue,
+                                  primary: Colors.blue,
                                   onPrimary: Colors.white,
                                   fixedSize: Size(
                                       MediaQuery.of(context).size.width, 20),

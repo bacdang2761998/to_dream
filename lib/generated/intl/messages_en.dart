@@ -34,11 +34,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "I am thankful to all who said no to me. It is because of them that I\'m doing it myself. — Albert Einstein"),
         "content3": MessageLookupByLibrary.simpleMessage(
             "Don\'t stop when you are tired. Stop when you are done - Marilyn Monroe."),
+        "createNew": MessageLookupByLibrary.simpleMessage(
+            "Do you want to create a new account ?"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "designation": MessageLookupByLibrary.simpleMessage("Designation"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "education": MessageLookupByLibrary.simpleMessage("Education"),
         "endDate": MessageLookupByLibrary.simpleMessage(" End Date"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "error": MessageLookupByLibrary.simpleMessage(
             "Please enter all information !"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
@@ -51,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "money": MessageLookupByLibrary.simpleMessage("Money"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "option": MessageLookupByLibrary.simpleMessage("Option"),
         "point": MessageLookupByLibrary.simpleMessage("Point"),
         "prioritylevel": MessageLookupByLibrary.simpleMessage("Priority Level"),
@@ -61,7 +65,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "targetTable": MessageLookupByLibrary.simpleMessage("Target Table"),
         "terms": MessageLookupByLibrary.simpleMessage(" Terms of service "),
         "timeLineTitle": MessageLookupByLibrary.simpleMessage("Time Line"),
+        "vN": MessageLookupByLibrary.simpleMessage("VietNamese"),
         "work": MessageLookupByLibrary.simpleMessage("Work"),
-        "year": MessageLookupByLibrary.simpleMessage("Year")
+        "year": MessageLookupByLibrary.simpleMessage("Year"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yourMission": MessageLookupByLibrary.simpleMessage("Your mission")
       };
 }

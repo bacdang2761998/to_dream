@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accept": MessageLookupByLibrary.simpleMessage(
-            "Tôi đã đọc và đồng ý với các điều khoản trên"),
+            "Tôi đã đọc và đồng ý với các điều khoản"),
         "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add": MessageLookupByLibrary.simpleMessage("Thêm"),
         "birthday": MessageLookupByLibrary.simpleMessage("Sinh nhật"),
@@ -34,11 +34,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tôi cảm ơn tất cả những người đã nói không với tôi. Chính vì họ mà tôi đang tự làm. — Albert Einstein"),
         "content3": MessageLookupByLibrary.simpleMessage(
             "Đừng dừng lại khi bạn mệt mỏi. Dừng lại khi bạn làm xong - Marilyn Monroe."),
+        "createNew": MessageLookupByLibrary.simpleMessage(
+            "Bạn có muốn tạo một tài khoản mới"),
         "day": MessageLookupByLibrary.simpleMessage("Ngày"),
         "designation": MessageLookupByLibrary.simpleMessage("Chỉ định"),
         "done": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "education": MessageLookupByLibrary.simpleMessage("Giáo dục"),
         "endDate": MessageLookupByLibrary.simpleMessage(" Ngày kết thúc"),
+        "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "error":
             MessageLookupByLibrary.simpleMessage("Xin nhập đầy đủ thông tin !"),
         "gallery": MessageLookupByLibrary.simpleMessage("Bộ sưu tập"),
@@ -51,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "money": MessageLookupByLibrary.simpleMessage("Tiền bạc"),
         "month": MessageLookupByLibrary.simpleMessage("Tháng"),
         "name": MessageLookupByLibrary.simpleMessage("Tên"),
+        "no": MessageLookupByLibrary.simpleMessage("Không"),
         "option": MessageLookupByLibrary.simpleMessage("Tùy chọn"),
         "point": MessageLookupByLibrary.simpleMessage("Điểm"),
         "prioritylevel": MessageLookupByLibrary.simpleMessage("Ưu tiên"),
@@ -61,7 +65,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "targetTable": MessageLookupByLibrary.simpleMessage("Bảng mục tiêu"),
         "terms": MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ "),
         "timeLineTitle": MessageLookupByLibrary.simpleMessage("Dòng thời gian"),
+        "vN": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "work": MessageLookupByLibrary.simpleMessage("Công việc"),
-        "year": MessageLookupByLibrary.simpleMessage("Năm")
+        "year": MessageLookupByLibrary.simpleMessage("Năm"),
+        "yes": MessageLookupByLibrary.simpleMessage("Có"),
+        "yourMission": MessageLookupByLibrary.simpleMessage("Nhiệm vụ của bạn")
       };
 }

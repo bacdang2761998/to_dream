@@ -399,6 +399,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you want to create a new account ?`
+  String get createNew {
+    return Intl.message(
+      'Do you want to create a new account ?',
+      name: 'createNew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your mission`
+  String get yourMission {
+    return Intl.message(
+      'Your mission',
+      name: 'yourMission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VietNamese`
+  String get vN {
+    return Intl.message(
+      'VietNamese',
+      name: 'vN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -408,7 +468,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'vi', countryCode: 'VN'),
-      Locale.fromSubtags(languageCode: 'vn'),
     ];
   }
 

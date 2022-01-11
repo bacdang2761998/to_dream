@@ -16,6 +16,8 @@ class _OptionScreenState extends State<OptionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String mission = S.of(context).yourMission;
+    String options = S.of(context).option;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +26,6 @@ class _OptionScreenState extends State<OptionScreen> {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        // automaticallyImplyLeading: false,
         actions: [
           TextButton(
               onPressed: () {
@@ -41,27 +42,25 @@ class _OptionScreenState extends State<OptionScreen> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            _titleBox("1 ToDO", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _titleBox("2 ToDo", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _titleBox("3 ToDo", size.height / 10),
-            _listTitle(textTitle: "textTitle", child: iconNext, onTap: () {}),
-            _listTitle(
-                textTitle: "textTitle", child: switchTitle, onTap: () {}),
-            _listTitle(textTitle: "textTitle", child: Text(""), onTap: () {}),
-            _titleBox("3TODO", size.height / 10),
-            _listTitle(
-                textTitle: "textTitle", child: switchTitle, onTap: () {}),
+            _titleBox("${options} 1", size.height / 10),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _titleBox("${options} 2", size.height / 10),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _titleBox("${options} 3", size.height / 10),
+            _listTitle(textTitle: mission, child: iconNext, onTap: () {}),
+            _listTitle(textTitle: mission, child: switchTitle, onTap: () {}),
+            _listTitle(textTitle: mission, child: Text(""), onTap: () {}),
+            _titleBox("${options} 4", size.height / 10),
+            _listTitle(textTitle: mission, child: switchTitle, onTap: () {}),
             _titleBox("", size.height / 20),
-            _listTitle(textTitle: "textTitle", child: Text(""), onTap: () {}),
-            _listTitleShare("textTitle ")
+            _listTitle(textTitle: mission, child: Text(""), onTap: () {}),
+            _listTitleShare(mission)
           ],
         ),
       ),
@@ -120,10 +119,10 @@ Widget _titleBox(String tittle, double _height) {
     ),
     height: _height,
     child: Padding(
-      padding: const EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
       child: Text(
         tittle,
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontSize: 24, color: Colors.yellow[900]),
       ),
     ),
   );

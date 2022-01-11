@@ -1,34 +1,26 @@
-import 'dart:core';
 import 'dart:io';
-import 'package:dream/screen/account/account_model.dart';
-import 'package:flutter/foundation.dart';
+
+import 'package:dream/screen/account/account_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:state_notifier/state_notifier.dart';
+
+import 'account_model.dart';
 
 const nameKey = 'name';
 const birthKey = 'birthDay';
 const Year = 'year';
 const imagKey = 'image';
 
-class AccountProvider extends ChangeNotifier {
-  File? _image;
-
-  DateTime _date = DateTime.now();
-
-  DateTime get date => _date;
-
-  File? get image => _image;
-
-  Account? _account;
-  Account? get account => _account;
+class AccountStateNotifier extends StateNotifier<AccountState>
+    with LocatorMixin {
+  AccountStateNotifier() : super(AccountState());
 
   Future setImage(File? imagePicker) async {
-    _image = imagePicker;
-    notifyListeners();
+    state = AccountState(image: imagePicker);
   }
 
   void setDate(DateTime isNewDate) {
-    _date = isNewDate;
-    notifyListeners();
+    state = state.copyWith(date: isNewDate);
   }
 
   Future<void> getAccountInfo() async {
@@ -43,7 +35,6 @@ class AccountProvider extends ChangeNotifier {
       year: year,
       avataAccount: imageAvata,
     );
-    _account = newacc;
-    notifyListeners();
+    state = state.copyWith(account: newacc);
   }
 }

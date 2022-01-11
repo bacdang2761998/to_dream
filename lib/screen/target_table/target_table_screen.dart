@@ -1,6 +1,7 @@
 import 'package:dream/generated/l10n.dart';
 import 'package:dream/screen/help/help_screen.dart';
-import 'package:dream/screen/target_table/target_table_provider.dart';
+import 'package:dream/screen/target_table/target_table_state.dart';
+import 'package:dream/screen/target_table/target_table_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +22,35 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final locale = S.of(context);
+    List<TargetModel> targetTables = [
+      TargetModel(
+          color: Color(0xFF43CD80),
+          title: locale.relationship,
+          icon: Icon(Icons.family_restroom)),
+      TargetModel(
+          color: Color(0xFFffba00),
+          title: locale.health,
+          icon: Icon(Icons.favorite)),
+      TargetModel(
+          color: Color(0xFF0f52ba),
+          title: locale.education,
+          icon: Icon(Icons.school)),
+      TargetModel(
+          color: Color(0xFFf4a460),
+          title: locale.self,
+          icon: Icon(Icons.perm_identity)),
+      TargetModel(
+          color: Color(0xFF54ff9f),
+          title: locale.work,
+          icon: Icon(Icons.business_center)),
+      TargetModel(
+          color: Color(0xFFff2400),
+          title: locale.money,
+          icon: Icon(Icons.favorite)),
+    ];
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -57,18 +85,18 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                   locale.year,
                 ),
               ),
-              _iconColumn(context, 0),
-              _iconColumn(context, 1),
-              _iconColumn(context, 2),
-              _iconColumn(context, 3),
-              _iconColumn(context, 4),
-              _iconColumn(context, 5),
+              _iconColumn(context, 0, targetTables),
+              _iconColumn(context, 1, targetTables),
+              _iconColumn(context, 2, targetTables),
+              _iconColumn(context, 3, targetTables),
+              _iconColumn(context, 4, targetTables),
+              _iconColumn(context, 5, targetTables),
             ],
           ),
           Flexible(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: _buildDataTable(context),
+              child: _buildDataTable(context, targetTables),
             ),
           ),
         ]),
@@ -76,7 +104,8 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
     );
   }
 
-  Widget _iconColumn(BuildContext context, int index) {
+  Widget _iconColumn(
+      BuildContext context, int index, List<TargetModel> targetTables) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height / 7,
@@ -89,8 +118,10 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
     );
   }
 
-  DataTable _buildDataTable(BuildContext context) {
+  DataTable _buildDataTable(
+      BuildContext context, List<TargetModel> targetTables) {
     Size size = MediaQuery.of(context).size;
+    final value = context.watch<TargetTableState>();
     return DataTable(
         showCheckboxColumn: false,
         dataRowHeight: size.height / 28,
@@ -125,7 +156,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 2:
                     case 3:
                       {
-                        _showModelBottomSheet(context, 0);
+                        _showModelBottomSheet(context, 0, targetTables);
                         break;
                       }
 
@@ -134,7 +165,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 6:
                     case 7:
                       {
-                        _showModelBottomSheet(context, 1);
+                        _showModelBottomSheet(context, 1, targetTables);
                         break;
                       }
                     case 8:
@@ -142,7 +173,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 10:
                     case 11:
                       {
-                        _showModelBottomSheet(context, 2);
+                        _showModelBottomSheet(context, 2, targetTables);
                         break;
                       }
                     case 12:
@@ -150,7 +181,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 14:
                     case 15:
                       {
-                        _showModelBottomSheet(context, 3);
+                        _showModelBottomSheet(context, 3, targetTables);
                         break;
                       }
                     case 16:
@@ -158,7 +189,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 18:
                     case 19:
                       {
-                        _showModelBottomSheet(context, 4);
+                        _showModelBottomSheet(context, 4, targetTables);
                         break;
                       }
 
@@ -167,7 +198,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                     case 22:
                     case 23:
                       {
-                        _showModelBottomSheet(context, 5);
+                        _showModelBottomSheet(context, 5, targetTables);
                         break;
                       }
                   }
@@ -181,12 +212,12 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                       width: size.width / 2,
                       decoration:
                           BoxDecoration(border: Border(right: BorderSide())),
-                      child: Consumer<TargetTableProvider>(
+                      child: Consumer<TargetTableStateNotifier>(
                         builder: (context, model, child) => Checkbox(
-                          onChanged: (isNewCheckedTarget) {
-                            model.setCheckedTable(isNewCheckedTarget!);
+                          onChanged: (isNewTargetCheck) {
+                            model.setTargetChecked(isNewTargetCheck!);
                           },
-                          value: model.isCheckedTarget,
+                          value: value.isTargetChecked,
                         ),
                       ),
                     ),
@@ -194,7 +225,8 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                 ))));
   }
 
-  _showModelBottomSheet(BuildContext context, int index) {
+  _showModelBottomSheet(
+      BuildContext context, int index, List<TargetModel> targetTables) {
     Size size = MediaQuery.of(context).size;
     return showModalBottomSheet(
         shape: RoundedRectangleBorder(
@@ -207,6 +239,7 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.all(10),
                       height: size.height / 10,
                       decoration: BoxDecoration(
                           color: targetTables[index].color,
@@ -220,14 +253,26 @@ class _TargetTableScreenState extends State<TargetTableScreen> {
                           Row(
                             children: [
                               targetTables[index].icon,
-                              Text(targetTables[index].title),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  targetTables[index].title,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
                             ],
                           ),
                           IconButton(
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon: Icon(Icons.cancel))
+                              icon: Icon(
+                                Icons.cancel,
+                                color: Colors.white,
+                              ))
                         ],
                       ),
                     ),
