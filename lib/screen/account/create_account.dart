@@ -245,7 +245,8 @@ void showDatePicker(BuildContext context) {
   showCupertinoModalPopup(
       context: context,
       builder: (BuildContext builder) {
-        return SizedBox(
+        return Container(
+          color: Colors.white,
           height: MediaQuery.of(context).copyWith().size.height * 0.25,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
