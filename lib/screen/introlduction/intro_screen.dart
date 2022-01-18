@@ -132,7 +132,6 @@ class _IntroScreenState extends State<IntroScreen> {
                               decoration: TextDecoration.underline)),
                       onTap: () {
                         context.read<IntrolStateNotifier>().setAbsorb();
-                        print(!value.isAbsorb);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
