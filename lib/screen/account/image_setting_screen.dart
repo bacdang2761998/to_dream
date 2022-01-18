@@ -57,11 +57,16 @@ class _ImageSettingScreenState extends State<ImageSettingScreen> {
                 actions: [
                   CupertinoActionSheetAction(
                       child: Text(S.of(context).camera),
-                      onPressed: () => pickImage(ImageSource.camera)),
-                  Divider(),
+                      onPressed: () {
+                        pickImage(ImageSource.camera);
+                        Navigator.pop(context);
+                      }),
                   CupertinoActionSheetAction(
                       child: Text(S.of(context).gallery),
-                      onPressed: () => pickImage(ImageSource.gallery)),
+                      onPressed: () {
+                        pickImage(ImageSource.gallery);
+                        Navigator.pop(context);
+                      }),
                 ],
               ));
     } else {
